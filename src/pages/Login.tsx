@@ -3,6 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
+import { useLoginMutation } from "@/redux/features/auth/authApi";
+import { useAppDispatch } from "@/redux/hook";
+import { setUser } from "@/redux/features/auth/authSlice";
+import { verifyToken } from "@/utils/verifyToken";
 
 type LoginFormInputs = {
   email: string;
@@ -10,16 +14,44 @@ type LoginFormInputs = {
 };
 
 const Login = () => {
+  const dispatch = useAppDispatch();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormInputs>();
+  } = useForm<LoginFormInputs>({
+    defaultValues: {
+      email: "demo@example.com",
+      password: "123456",
+    },
+  });
 
-  const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
+  const [login] = useLoginMutation();
+
+  const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     // Proceed with login logic
     console.log("Login Data:", data);
-    toast.success("Login successful!");
+    try {
+      const userInfo = {
+        email: data.email,
+        password: data.password,
+      };
+      const res = await login(userInfo).unwrap();
+        console.log("Login Response:", res);
+
+      const user = verifyToken(res.data.token);
+      dispatch(
+        setUser({
+          user: user,
+          token: res.data.token,
+        })
+      );
+      toast.success("Login successful");
+    } catch (error) {
+      console.log(error);
+      toast.error("Login failed");
+    }
   };
 
   return (

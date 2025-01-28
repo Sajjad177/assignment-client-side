@@ -2,7 +2,7 @@ import Navbar from "../Navbar";
 
 const MainLayout = () => {
   return (
-    <div>
+    <div className="font-primaryFront">
       <Navbar />
       this is main layout
     </div>

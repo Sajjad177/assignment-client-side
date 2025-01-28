@@ -15,6 +15,7 @@ const navItems: NavItem[] = [
   { name: "About", href: "/about" },
   { name: "Services", href: "/services" },
   { name: "Contact", href: "/contact" },
+  
 ];
 
 const Navbar = () => {

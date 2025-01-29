@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Users, Menu, X, User, ShoppingBag, Box } from "lucide-react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import { useAppSelector } from "@/redux/hook";
 import { selectCurrentUser } from "@/redux/features/auth/authSlice";
 
@@ -21,8 +21,8 @@ const Sidebar = () => {
     case userRole.admin:
       menuItems.push(
         { icon: <User className="w-4 h-4" />, name: "Profile", href: "profile" },
-        { icon: <Box className="w-4 h-4" />, name: "Products", href: "#" },
-        { icon: <ShoppingBag className="w-4 h-4" />, name: "Orders", href: "#" }
+        { icon: <Box className="w-4 h-4" />, name: "Products", href: "products" },
+        { icon: <ShoppingBag className="w-4 h-4" />, name: "Orders", href: "orders" }
       );
       break;
     case userRole.user:
@@ -68,7 +68,7 @@ const Sidebar = () => {
           <ScrollArea className="flex-1">
             <nav className="space-y-1 p-4">
               {menuItems.map((item, index) => (
-                <Link
+                <NavLink
                   key={index}
                   to={item.href}
                   className="flex items-center gap-3 px-3 py-3 rounded-md text-sm
@@ -78,7 +78,7 @@ const Sidebar = () => {
                 >
                   {item.icon}
                   <span className="font-medium">{item.name}</span>
-                </Link>
+                </NavLink>
               ))}
             </nav>
           </ScrollArea>

@@ -10,7 +10,14 @@ const productManagement = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Product"],
     }),
+    getAllProducts: builder.query({
+      query: () => ({
+        url: "/products",
+        method: "GET",
+      }),
+      providesTags: ["Product"],
+    })
   }),
 });
 
-export const { useAddProductMutation } = productManagement;
+export const { useAddProductMutation, useGetAllProductsQuery } = productManagement;

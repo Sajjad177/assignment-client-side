@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label"; // ✅ Fix: Correct Label import
+import { Label } from "@/components/ui/label"; 
 import { Plus } from "lucide-react";
 import {
   Select,
@@ -18,7 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Form } from "./ui/form";
-import { UseFormReturn } from "react-hook-form";
+
 
 type ProductFormValues = {
   name: string;
@@ -26,18 +26,17 @@ type ProductFormValues = {
   brand: string;
   quantity: number;
   category: string;
-  image ?: string
+  image?: string;
 };
 
 const ProductAddDialog = ({
   open,
   setOpen,
-  form, // ✅ Receive form instance from parent
+  form,
   onSubmit,
 }: {
   open: boolean;
   setOpen: (open: boolean) => void;
-  form: UseFormReturn<ProductFormValues>; // ✅ Correct Type for form
   onSubmit: (data: ProductFormValues) => void;
 }) => {
   const {
@@ -45,7 +44,7 @@ const ProductAddDialog = ({
     handleSubmit,
     setValue,
     formState: { errors },
-  } = form; // ✅ Use parent form instance
+  } = form; 
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

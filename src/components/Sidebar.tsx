@@ -1,18 +1,40 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Home, Settings, Users, Mail, FileText, Menu, X } from "lucide-react";
+import { Users, Menu, X, User, ShoppingBag, Box } from "lucide-react";
+import { Link, Outlet } from "react-router-dom";
+import { useAppSelector } from "@/redux/hook";
+import { selectCurrentUser } from "@/redux/features/auth/authSlice";
+
+const userRole = {
+  admin: "admin",
+  user: "user",
+};
 
 const Sidebar = () => {
+  const user = useAppSelector(selectCurrentUser);
   const [isOpen, setIsOpen] = useState(false);
 
-  const menuItems = [
-    { icon: <Home className="w-4 h-4" />, label: "Dashboard", href: "#" },
-    { icon: <Users className="w-4 h-4" />, label: "Users", href: "#" },
-    { icon: <Mail className="w-4 h-4" />, label: "Messages", href: "#" },
-    { icon: <FileText className="w-4 h-4" />, label: "Documents", href: "#" },
-    { icon: <Settings className="w-4 h-4" />, label: "Settings", href: "#" },
-  ];
+  const menuItems = [];
+
+  switch (user!.role) {
+    case userRole.admin:
+      menuItems.push(
+        { icon: <User className="w-4 h-4" />, name: "Profile", href: "profile" },
+        { icon: <Box className="w-4 h-4" />, name: "Products", href: "#" },
+        { icon: <ShoppingBag className="w-4 h-4" />, name: "Orders", href: "#" }
+      );
+      break;
+    case userRole.user:
+      menuItems.push(
+        { icon: <Users className="w-4 h-4" />, name: "Users", href: "#" },
+        { icon: <Box className="w-4 h-4" />, name: "Products", href: "#" },
+        { icon: <ShoppingBag className="w-4 h-4" />, name: "Orders", href: "#" }
+      );
+      break;
+    default:
+      break;
+  }
 
   return (
     <div className="relative flex min-h-screen">
@@ -42,26 +64,21 @@ const Sidebar = () => {
         `}
       >
         <div className="flex flex-col h-full">
-          {/* Logo Area */}
-          {/* <div className="p-6 border-b">
-            <h2 className="text-xl font-semibold truncate">Your App Name</h2>
-          </div> */}
-
           {/* Navigation */}
           <ScrollArea className="flex-1">
             <nav className="space-y-1 p-4">
               {menuItems.map((item, index) => (
-                <a
+                <Link
                   key={index}
-                  href={item.href}
+                  to={item.href}
                   className="flex items-center gap-3 px-3 py-3 rounded-md text-sm
                     hover:bg-gray-100 hover:text-gray-900
                     transition-colors duration-200
                     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300"
                 >
                   {item.icon}
-                  <span className="font-medium">{item.label}</span>
-                </a>
+                  <span className="font-medium">{item.name}</span>
+                </Link>
               ))}
             </nav>
           </ScrollArea>
@@ -71,31 +88,8 @@ const Sidebar = () => {
       {/* Main Content */}
       <main className="flex-1 min-w-0 overflow-auto mt-[64px] p-6">
         <div className="container mx-auto">
-          {/* Header Area */}
-          <div className="mb-8">
-            <div className="flex items-center justify-between">
-              <h1 className="text-2xl font-bold">Welcome to Dashboard</h1>
-              <Button variant="outline" size="sm">
-                Action
-              </Button>
-            </div>
-          </div>
-
-          {/* Content Area */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[1, 2, 3, 4, 5, 6].map((item) => (
-              <div
-                key={item}
-                className="bg-white text-gray-900 rounded-lg border border-gray-200 p-6 shadow-sm hover:shadow-md transition"
-              >
-                <h3 className="text-lg font-semibold mb-2">Card {item}</h3>
-                <p className="text-sm text-gray-600">
-                  This is a sample card to demonstrate the responsive grid
-                  layout.
-                </p>
-              </div>
-            ))}
-          </div>
+          {/* Outlet add there */}
+          <Outlet />
         </div>
       </main>
     </div>

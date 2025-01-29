@@ -17,6 +17,7 @@ const navItems: NavItem[] = [
   { name: "About", href: "/about" },
   { name: "Services", href: "/services" },
   { name: "Contact", href: "/contact" },
+
 ];
 
 const Navbar = () => {
@@ -63,10 +64,12 @@ const Navbar = () => {
           <div className="hidden md:flex space-x-4">
             {currentUser ? (
               <>
-                <Button variant="outline" className="px-4">
-                  {" "}
-                  Dashboard{" "}
-                </Button>
+                <Link to="/dashboard">
+                  <Button variant="outline" className="px-4">
+                    {" "}
+                    Dashboard{" "}
+                  </Button>
+                </Link>
                 <Button
                   onClick={handleLogout}
                   variant="outline"
@@ -132,10 +135,12 @@ const Navbar = () => {
               {currentUser ? (
                 <>
                   <>
-                    <Button variant="outline" className="px-4">
-                      {" "}
-                      Dashboard{" "}
-                    </Button>
+                    <Link to="/dashboard">
+                      <Button variant="outline" className="px-4">
+                        {" "}
+                        Dashboard{" "}
+                      </Button>
+                    </Link>
                     <Button
                       onClick={handleLogout}
                       variant="outline"

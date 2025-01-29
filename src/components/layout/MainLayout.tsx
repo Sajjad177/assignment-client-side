@@ -1,10 +1,11 @@
+import { Outlet } from "react-router-dom";
 import Navbar from "../Navbar";
 
 const MainLayout = () => {
   return (
     <div className="font-primaryFront">
       <Navbar />
-      this is main layout
+      <Outlet />
     </div>
   );
 };

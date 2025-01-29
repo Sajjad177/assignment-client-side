@@ -8,7 +8,9 @@ const authAPi = baseApi.injectEndpoints({
         method: "POST",
         body: userInfo,
       }),
+      invalidatesTags: ["User"],
     }),
+    
   }),
 });
 

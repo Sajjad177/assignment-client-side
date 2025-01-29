@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { Button } from "./ui/button";
-import { Menu, X } from "lucide-react";
+import { LogOut, Menu, X } from "lucide-react";
+import { logOut, selectCurrentUser } from "@/redux/features/auth/authSlice";
 
 // Define the type for navigation items
 type NavItem = {
@@ -15,14 +17,22 @@ const navItems: NavItem[] = [
   { name: "About", href: "/about" },
   { name: "Services", href: "/services" },
   { name: "Contact", href: "/contact" },
-  
 ];
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
+
+  const currentUser = useSelector(selectCurrentUser);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleLogout = () => {
+    dispatch(logOut());
+    navigate("/login");
   };
 
   return (
@@ -49,18 +59,37 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Login/Register Buttons */}
+          {/* User Section */}
           <div className="hidden md:flex space-x-4">
-            <Link to="/login">
-              <Button variant="outline" className="px-4">
-                Login
-              </Button>
-            </Link>
-            <Link to="/register">
-              <Button variant="default" className="px-4">
-                Register
-              </Button>
-            </Link>
+            {currentUser ? (
+              <>
+                <Button variant="outline" className="px-4">
+                  {" "}
+                  Dashboard{" "}
+                </Button>
+                <Button
+                  onClick={handleLogout}
+                  variant="outline"
+                  className="px-4"
+                >
+                  <LogOut className="ml-1 h-4 w-4" />
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <Link to="/login">
+                  <Button variant="outline" className="px-4">
+                    Login
+                  </Button>
+                </Link>
+                <Link to="/register">
+                  <Button variant="default" className="px-4">
+                    Register
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -100,16 +129,37 @@ const Navbar = () => {
               </Link>
             ))}
             <div className="mt-6 space-y-4">
-              <Link to="/login">
-                <Button variant="outline" className="w-full">
-                  Login
-                </Button>
-              </Link>
-              <Link to="/register">
-                <Button variant="default" className="w-full">
-                  Register
-                </Button>
-              </Link>
+              {currentUser ? (
+                <>
+                  <>
+                    <Button variant="outline" className="px-4">
+                      {" "}
+                      Dashboard{" "}
+                    </Button>
+                    <Button
+                      onClick={handleLogout}
+                      variant="outline"
+                      className="px-4"
+                    >
+                      <LogOut className="ml-1 h-4 w-4" />
+                      Logout
+                    </Button>
+                  </>
+                </>
+              ) : (
+                <>
+                  <Link to="/login">
+                    <Button variant="outline" className="w-full">
+                      Login
+                    </Button>
+                  </Link>
+                  <Link to="/register">
+                    <Button variant="default" className="w-full">
+                      Register
+                    </Button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

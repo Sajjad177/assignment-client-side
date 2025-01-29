@@ -7,6 +7,7 @@ import { useLoginMutation } from "@/redux/features/auth/authApi";
 import { useAppDispatch } from "@/redux/hook";
 import { setUser } from "@/redux/features/auth/authSlice";
 import { verifyToken } from "@/utils/verifyToken";
+import { useNavigate } from "react-router-dom";
 
 type LoginFormInputs = {
   email: string;
@@ -14,6 +15,7 @@ type LoginFormInputs = {
 };
 
 const Login = () => {
+    const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const {
@@ -31,14 +33,14 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     // Proceed with login logic
-    console.log("Login Data:", data);
+    // console.log("Login Data:", data);
     try {
       const userInfo = {
         email: data.email,
         password: data.password,
       };
       const res = await login(userInfo).unwrap();
-        console.log("Login Response:", res);
+        // console.log("Login Response:", res);
 
       const user = verifyToken(res.data.token);
       dispatch(
@@ -47,6 +49,8 @@ const Login = () => {
           token: res.data.token,
         })
       );
+      //! add there dynamic route for protected route
+      navigate("/");
       toast.success("Login successful");
     } catch (error) {
       console.log(error);

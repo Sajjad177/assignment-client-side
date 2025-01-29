@@ -3,6 +3,7 @@ import ProductAddDialog from "@/components/ProductAddDialog";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import {
   useAddProductMutation,
+  useDeletedProductMutation,
   useGetAllProductsQuery,
 } from "@/redux/features/ProductManagement/productManagement";
 import { toast } from "sonner";
@@ -30,6 +31,7 @@ import { Pencil, Trash } from "lucide-react";
 const Products = () => {
   const [addProduct] = useAddProductMutation();
   const { data: AllProducts, isLoading } = useGetAllProductsQuery(undefined);
+  const [deletedProduct] = useDeletedProductMutation();
 
   // Get unique product and category
   const productList = AllProducts?.data || [];
@@ -82,6 +84,21 @@ const Products = () => {
     }
   };
 
+  const handleDeleteProduct = async (productId: string) => {
+    const toastId = toast.loading("Deleting Product...");
+    try {
+      const res = await deletedProduct(productId).unwrap();
+      if (res.error) {
+        toast.error("Failed to delete product", { id: toastId });
+      } else {
+        toast.success(res.message, { id: toastId });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to delete product", { id: toastId });
+    }
+  };
+
   if (isLoading) {
     return <div className="text-center text-lg font-semibold">Loading...</div>;
   }
@@ -96,7 +113,7 @@ const Products = () => {
         <ProductAddDialog
           open={open}
           setOpen={setOpen}
-          form={form} 
+          form={form}
           onSubmit={handleFormSubmit}
         />
       </div>
@@ -206,7 +223,11 @@ const Products = () => {
                       <Button variant="outline" className="p-2 text-blue-500">
                         <Pencil size={16} />
                       </Button>
-                      <Button variant="outline" className="p-2 text-red-500">
+                      <Button
+                        variant="outline"
+                        className="p-2 text-red-500"
+                        onClick={() => handleDeleteProduct(product._id)}
+                      >
                         <Trash size={16} />
                       </Button>
                     </TableCell>

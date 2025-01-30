@@ -28,8 +28,6 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 > = async (args, api, extraOptions): Promise<any> => {
   let result = await baseQuery(args, api, extraOptions);
 
-  console.log("baseQueryWithRefreshToken ->", result);
-
   if (result.error && result.error.status === 401) {
     toast.error((result.error as any).data.message);
   }
@@ -48,17 +46,6 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryWithRefreshToken,
-  // baseQuery: fetchBaseQuery({
-  //   baseUrl: "http://localhost:5000/api",
-  //   credentials: "include",
-  //   prepareHeaders: (headers, { getState }) => {
-  //     const token = (getState() as RootState).auth.token;
-  //     if (token) {
-  //       headers.set("Authorization", `${token}`);
-  //     }
-  //     return headers;
-  //   },
-  // }),
-  tagTypes: ["User", "Product"],
+  tagTypes: ["User", "Product", "Order"],
   endpoints: () => ({}),
 });

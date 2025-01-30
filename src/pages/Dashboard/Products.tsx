@@ -27,6 +27,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Pencil, Trash } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Products = () => {
   const [addProduct] = useAddProductMutation();
@@ -220,10 +221,17 @@ const Products = () => {
                       )}
                     </TableCell>
                     <TableCell className="px-4 py-3 flex justify-center gap-2">
-                      <Button variant="outline" className="p-2 text-blue-500">
-                        <Pencil size={16} />
-                      </Button>
+                      <Link to={`/dashboard/edit-product/${product._id}`}>
+                        <Button
+                          title="Edit"
+                          variant="outline"
+                          className="p-2 text-blue-500"
+                        >
+                          <Pencil size={16} />
+                        </Button>
+                      </Link>
                       <Button
+                        title="Delete"
                         variant="outline"
                         className="p-2 text-red-500"
                         onClick={() => handleDeleteProduct(product._id)}

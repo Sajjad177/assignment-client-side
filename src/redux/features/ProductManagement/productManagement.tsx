@@ -24,6 +24,21 @@ const productManagement = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Product"],
     }),
+    getSingleProduct: builder.query({
+      query: (id) => ({
+        url: `/products/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["Product"],
+    }),
+    updateProduct: builder.mutation({
+      query: ({ id, ...data }) => ({
+        url: `/products/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["Product"],
+    }),
   }),
 });
 
@@ -31,4 +46,6 @@ export const {
   useAddProductMutation,
   useGetAllProductsQuery,
   useDeletedProductMutation,
+  useGetSingleProductQuery,
+  useUpdateProductMutation,
 } = productManagement;

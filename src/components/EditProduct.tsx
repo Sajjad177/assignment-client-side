@@ -54,7 +54,6 @@ const EditProduct = () => {
   };
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data);
     const toastId = toast.loading("Updating Product...");
     try {
       const res = await updateProduct({ id, ...data }).unwrap();
@@ -123,6 +122,7 @@ const EditProduct = () => {
                 <Input
                   id="quantity"
                   type="number"
+                  min={0}
                   {...register("quantity")}
                   placeholder="Enter quantity"
                 />

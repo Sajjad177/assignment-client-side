@@ -38,7 +38,9 @@ const Products = () => {
   const productList = AllProducts?.data || [];
   const uniqueCategories: any[] = [
     "All",
-    ...Array.from(new Set(productList.map((product: any) => product.category))),
+    ...Array.from(
+      new Set(productList.map((product: any) => product?.category))
+    ),
   ];
 
   const [open, setOpen] = useState(false);
@@ -51,21 +53,27 @@ const Products = () => {
   const [availability, setAvailability] = useState<string>("All");
 
   // Filtered Products List
-  const filteredProducts = productList.filter((product: any) => {
-    const matchesSearch = product.name
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-    const matchesCategory = category === "All" || product.category === category;
-    const matchesPrice = product.price <= priceRange;
-    const matchesAvailability =
-      availability === "All" ||
-      (availability === "in_stock" && product.inStock) ||
-      (availability === "out_of_stock" && !product.inStock);
+  const filteredProducts = productList
+    .map((product: any) => ({
+      ...product,
+      inStock: product.quantity > 0, 
+    }))
+    .filter((product: any) => {
+      const matchesSearch = product?.name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      const matchesCategory =
+        category === "All" || product.category === category;
+      const matchesPrice = product?.price <= priceRange;
+      const matchesAvailability =
+        availability === "All" ||
+        (availability === "in_stock" && product?.inStock) ||
+        (availability === "out_of_stock" && !product?.inStock);
 
-    return (
-      matchesSearch && matchesCategory && matchesPrice && matchesAvailability
-    );
-  });
+      return (
+        matchesSearch && matchesCategory && matchesPrice && matchesAvailability
+      );
+    });
 
   const handleFormSubmit: SubmitHandler<FieldValues> = async (data) => {
     const toastId = toast.loading("Adding Product...");
@@ -152,9 +160,9 @@ const Products = () => {
                 <SelectValue placeholder="Select a category" />
               </SelectTrigger>
               <SelectContent>
-                {uniqueCategories.map((cat: string) => (
+                {uniqueCategories?.map((cat: string) => (
                   <SelectItem key={cat} value={cat}>
-                    {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                    {cat?.charAt(0).toUpperCase() + cat?.slice(1)}
                   </SelectItem>
                 ))}
               </SelectContent>

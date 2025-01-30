@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Users, Menu, X, User, ShoppingBag, Box } from "lucide-react";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import { useAppSelector } from "@/redux/hook";
 import { selectCurrentUser } from "@/redux/features/auth/authSlice";
 
@@ -20,14 +20,27 @@ const Sidebar = () => {
   switch (user!.role) {
     case userRole.admin:
       menuItems.push(
-        { icon: <User className="w-4 h-4" />, name: "Profile", href: "profile" },
-        { icon: <Box className="w-4 h-4" />, name: "Products", href: "products" },
-        { icon: <ShoppingBag className="w-4 h-4" />, name: "Orders", href: "orders" }
+        {
+          icon: <User className="w-4 h-4" />,
+          name: "Profile",
+          href: "profile",
+        },
+        { icon: <Users className="w-4 h-4" />, name: "Users", href: "users" },
+        {
+          icon: <Box className="w-4 h-4" />,
+          name: "Products",
+          href: "products",
+        },
+        {
+          icon: <ShoppingBag className="w-4 h-4" />,
+          name: "Orders",
+          href: "orders",
+        }
       );
       break;
     case userRole.user:
       menuItems.push(
-        { icon: <Users className="w-4 h-4" />, name: "Users", href: "#" },
+        // { icon: <Users className="w-4 h-4" />, name: "Users", href: "#" },
         { icon: <Box className="w-4 h-4" />, name: "Products", href: "#" },
         { icon: <ShoppingBag className="w-4 h-4" />, name: "Orders", href: "#" }
       );

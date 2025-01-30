@@ -28,14 +28,18 @@ import {
 } from "@/components/ui/table";
 import { Pencil, Trash } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useGetAllUsersQuery } from "@/redux/features/user/userManagement";
 
 const Products = () => {
   const [addProduct] = useAddProductMutation();
   const { data: AllProducts, isLoading } = useGetAllProductsQuery(undefined);
+  const {data : userData } = useGetAllUsersQuery(undefined);
   const [deletedProduct] = useDeletedProductMutation();
 
   // Get unique product and category
   const productList = AllProducts?.data || [];
+  const userList = userData?.data || [];
+  // console.log("userList", userList);
   const uniqueCategories: any[] = [
     "All",
     ...Array.from(
@@ -188,6 +192,7 @@ const Products = () => {
             <TableHeader>
               <TableRow className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
                 <TableHead className="px-4 py-3">Product Name</TableHead>
+                <TableHead className="px-4 py-3">Author</TableHead>
                 <TableHead className="px-4 py-3">Category</TableHead>
                 <TableHead className="px-4 py-3">Price</TableHead>
                 <TableHead className="px-4 py-3">Availability</TableHead>
@@ -196,62 +201,72 @@ const Products = () => {
             </TableHeader>
             <TableBody>
               {filteredProducts.length > 0 ? (
-                filteredProducts.map((product: any) => (
-                  <TableRow
-                    key={product._id}
-                    className="border-b hover:bg-gray-100 dark:hover:bg-gray-800"
-                  >
-                    <TableCell className="px-4 py-3">{product.name}</TableCell>
-                    <TableCell className="px-4 py-3">
-                      {product.category}
-                    </TableCell>
-                    <TableCell className="px-4 py-3">
-                      ${product.price}
-                    </TableCell>
-                    <TableCell className="px-4 py-3">
-                      {product.inStock ? (
+                filteredProducts.map((product: any) => {
+                  const user = userList.find(
+                    (user: any) => user._id === product.author
+                  );
+                  return (
+                    <TableRow
+                      key={product._id}
+                      className="border-b hover:bg-gray-100 dark:hover:bg-gray-800"
+                    >
+                      <TableCell className="px-4 py-3">
+                        {product.name}
+                      </TableCell>
+                      <TableCell className="px-4 py-3">
+                        {user?.name || "Unknown"}
+                      </TableCell>
+                      <TableCell className="px-4 py-3">
+                        {product.category}
+                      </TableCell>
+                      <TableCell className="px-4 py-3">
+                        ${product.price}
+                      </TableCell>
+                      <TableCell className="px-4 py-3">
+                        {product.inStock ? (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="p-2 text-green-500"
+                          >
+                            In Stock
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="outline"
+                            disabled
+                            size="sm"
+                            className="p-2 text-red-500"
+                          >
+                            Out of Stock
+                          </Button>
+                        )}
+                      </TableCell>
+                      <TableCell className="px-4 py-3 flex justify-center gap-2">
+                        <Link to={`/dashboard/edit-product/${product._id}`}>
+                          <Button
+                            title="Edit"
+                            variant="outline"
+                            className="p-2 text-blue-500"
+                          >
+                            <Pencil size={16} />
+                          </Button>
+                        </Link>
                         <Button
+                          title="Delete"
                           variant="outline"
-                          size="sm"
-                          className="p-2 text-green-500"
-                        >
-                          In Stock
-                        </Button>
-                      ) : (
-                        <Button
-                          variant="outline"
-                          disabled
-                          size="sm"
                           className="p-2 text-red-500"
+                          onClick={() => handleDeleteProduct(product._id)}
                         >
-                          Out of Stock
+                          <Trash size={16} />
                         </Button>
-                      )}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 flex justify-center gap-2">
-                      <Link to={`/dashboard/edit-product/${product._id}`}>
-                        <Button
-                          title="Edit"
-                          variant="outline"
-                          className="p-2 text-blue-500"
-                        >
-                          <Pencil size={16} />
-                        </Button>
-                      </Link>
-                      <Button
-                        title="Delete"
-                        variant="outline"
-                        className="p-2 text-red-500"
-                        onClick={() => handleDeleteProduct(product._id)}
-                      >
-                        <Trash size={16} />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))
+                      </TableCell>
+                    </TableRow>
+                  );
+                })
               ) : (
                 <TableRow>
-                  <TableCell colSpan={5} className="text-center py-4">
+                  <TableCell colSpan={6} className="text-center py-4">
                     No products found
                   </TableCell>
                 </TableRow>

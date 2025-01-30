@@ -1,5 +1,12 @@
 import { Button } from "@/components/ui/button";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Table,
   TableBody,
   TableCell,
@@ -7,20 +14,65 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
 
-import { useGetAllOrdersQuery } from "@/redux/features/Order/OrderManagement";
+import {
+  useDeletedOrderMutation,
+  useGetAllOrdersQuery,
+  useUpdateOrderStatusMutation,
+} from "@/redux/features/Order/OrderManagement";
 import { useGetAllProductsQuery } from "@/redux/features/ProductManagement/productManagement";
 import { useGetAllUsersQuery } from "@/redux/features/user/userManagement";
+// import { Select } from "@radix-ui/react-select";
 import { Trash } from "lucide-react";
+import { toast } from "sonner";
 
 const Orders = () => {
   const { data: OrderData } = useGetAllOrdersQuery(undefined);
   const { data: UserData } = useGetAllUsersQuery(undefined);
   const { data: ProductData } = useGetAllProductsQuery(undefined);
 
+  const [deletedOrder] = useDeletedOrderMutation();
+  const [updateOrderStatus] = useUpdateOrderStatusMutation();
+
   const orderDataList = OrderData?.data || [];
   const userList = UserData?.data || [];
   const productList = ProductData?.data || [];
+
+  // update order status
+  const handelUpdateOrderStatus = async (id: string, status: string) => {
+    console.log(id, status);
+    const toastId = toast.loading("Updating Order Status...");
+    try {
+      const res = await updateOrderStatus({ id, data: { status } }).unwrap();
+      console.log("response -> ", res);
+      if (res.error) {
+        toast.error(res.error, { id: toastId });
+      } else {
+        toast.success(res.message, { id: toastId });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to update order status", { id: toastId });
+    }
+  };
+
+  // delete order handler
+  const handleDeleteOrder = async (id: string) => {
+    const toastId = toast.loading("Deleting Order...");
+    try {
+      const res = await deletedOrder(id).unwrap();
+      console.log(res);
+      if (res.error) {
+        toast.error(res.error, { id: toastId });
+      } else {
+        toast.success(res.message, { id: toastId });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to delete order", { id: toastId });
+    }
+  };
 
   return (
     <div>
@@ -65,13 +117,63 @@ const Orders = () => {
                     <TableCell className="px-4 py-3">
                       {order.quantity}
                     </TableCell>
-                    <TableCell className="px-4 py-3">{order.status}</TableCell>
+                    <TableCell className="px-4 py-3">
+                      <Select
+                        onValueChange={(value) =>
+                          handelUpdateOrderStatus(order._id, value)
+                        }
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue
+                            placeholder={order.status}
+                            className={cn(
+                              "px-2 py-1 rounded text-center",
+                              order.status === "Pending" &&
+                                "text-yellow-500 font-semibold",
+                              order.status === "Shipping" &&
+                                "text-blue-500 font-semibold",
+                              order.status === "Delivered" &&
+                                "text-green-500 font-semibold",
+                              order.status === "Cancelled" &&
+                                "text-red-500 font-semibold"
+                            )}
+                          />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem
+                            value="Pending"
+                            className="text-yellow-500"
+                          >
+                            Pending
+                          </SelectItem>
+                          <SelectItem
+                            value="Shipping"
+                            className="text-blue-500"
+                          >
+                            Shipping
+                          </SelectItem>
+                          <SelectItem
+                            value="Delivered"
+                            className="text-green-500"
+                          >
+                            Delivered
+                          </SelectItem>
+                          <SelectItem
+                            value="Cancelled"
+                            className="text-red-500"
+                          >
+                            Cancelled
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </TableCell>
+
                     <TableCell className="px-4 py-3 flex justify-center gap-2">
                       <Button
                         title="Delete"
                         variant="outline"
                         className="p-2 text-red-500"
-                        //   onClick={() => handleDeleteProduct(order._id)}
+                        onClick={() => handleDeleteOrder(order._id)}
                       >
                         <Trash size={16} />
                       </Button>

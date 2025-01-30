@@ -9,7 +9,27 @@ const OrderManagement = baseApi.injectEndpoints({
       }),
       providesTags: ["Order"],
     }),
+    deletedOrder: builder.mutation({
+      query: (id) => ({
+        url: `/orders/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Order"],
+    }),
+    updateOrderStatus: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/orders/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      
+      invalidatesTags: ["Order"],
+    }),
   }),
 });
 
-export const { useGetAllOrdersQuery } = OrderManagement;
+export const {
+  useGetAllOrdersQuery,
+  useDeletedOrderMutation,
+  useUpdateOrderStatusMutation,
+} = OrderManagement;

@@ -63,7 +63,8 @@ export default {
   		}
   	},
   	fontFamily: {
-  		primaryFront: 'Space Mono", serif'
+  		primaryFront: '"Space Mono", serif',
+		secondaryFront: '"Prata", serif'
   	}
   },
   plugins: [require("tailwindcss-animate")],

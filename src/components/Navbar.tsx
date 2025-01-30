@@ -17,7 +17,6 @@ const navItems: NavItem[] = [
   { name: "About", href: "/about" },
   { name: "Services", href: "/services" },
   { name: "Contact", href: "/contact" },
-
 ];
 
 const Navbar = () => {
@@ -42,8 +41,8 @@ const Navbar = () => {
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link to="/" className="text-xl font-bold text-gray-800">
-              MyLogo
+            <Link to="/" className="text-xl font-bold text-teal-600">
+              Note & Nest
             </Link>
           </div>
 
@@ -143,7 +142,7 @@ const Navbar = () => {
                     </Link>
                     <Button
                       onClick={handleLogout}
-                      variant="outline"
+                      // variant="outline"
                       className="px-4"
                     >
                       <LogOut className="ml-1 h-4 w-4" />

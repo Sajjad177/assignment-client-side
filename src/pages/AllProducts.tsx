@@ -1,4 +1,7 @@
-import { useGetAllProductsQuery } from "@/redux/features/ProductManagement/productManagement";
+import {
+  useGetAllProductsQuery,
+  useGetSingleProductQuery,
+} from "@/redux/features/ProductManagement/productManagement";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
@@ -7,7 +10,6 @@ import { Link } from "react-router-dom";
 const AllProducts = () => {
   const { data: ProductData } = useGetAllProductsQuery(undefined);
   const productList = ProductData?.data || [];
-  console.log(productList);
 
   return (
     <div className="container mx-auto p-6 font-primaryFront">
@@ -46,9 +48,11 @@ const AllProducts = () => {
               <p className="text-gray-800 font-bold mt-2">
                 Price: ${product.price}
               </p>
-              <Button className="mt-4 w-full bg-teal-600 hover:bg-teal-700 text-white">
-                View Details
-              </Button>
+              <Link to={`/products/${product._id}`}>
+                <Button className="mt-4 w-full bg-teal-600 hover:bg-teal-700 text-white">
+                  View Details
+                </Button>
+              </Link>
             </CardContent>
           </Card>
         ))}

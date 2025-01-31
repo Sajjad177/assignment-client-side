@@ -4,6 +4,7 @@ import Login from "@/pages/Login";
 import { createBrowserRouter } from "react-router-dom";
 import dashboardRoute from "./dashboardRoute";
 import AllProducts from "@/pages/AllProducts";
+import ProductDetails from "@/components/ProductDetails";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "/all-products",
     element: <AllProducts />,
+  },
+  {
+    path: "/products/:id",
+    element: <ProductDetails />,
   },
   {
     path: "/login",

@@ -3,6 +3,7 @@ import Dashboard from "@/pages/Dashboard/Dashboard";
 import Login from "@/pages/Login";
 import { createBrowserRouter } from "react-router-dom";
 import dashboardRoute from "./dashboardRoute";
+import AllProducts from "@/pages/AllProducts";
 
 const router = createBrowserRouter([
   {
@@ -12,8 +13,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard/>,
+    element: <Dashboard />,
     children: dashboardRoute,
+  },
+  {
+    path: "/all-products",
+    element: <AllProducts />,
   },
   {
     path: "/login",

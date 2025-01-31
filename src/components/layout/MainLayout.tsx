@@ -3,6 +3,7 @@ import Navbar from "../Navbar";
 import Banner from "../Banner";
 import OurStory from "../ReleventFeatures";
 import Footer from "../Footer";
+import Featured from "../Featured";
 
 const MainLayout = () => {
   return (
@@ -13,6 +14,7 @@ const MainLayout = () => {
         <Banner />
       </div>
       <OurStory/>
+      <Featured />
       <Footer />
     </div>
   );

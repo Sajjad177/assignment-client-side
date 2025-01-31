@@ -24,7 +24,7 @@ const Login = () => {
     formState: { errors },
   } = useForm<LoginFormInputs>({
     defaultValues: {
-      email: "demo@example.com",
+      email: "admin@example.com",
       password: "123456",
     },
   });

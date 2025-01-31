@@ -50,7 +50,7 @@ const Sidebar = () => {
   }
 
   return (
-    <div className="relative flex min-h-screen">
+    <div className="relative flex min-h-screen font-primaryFront">
       {/* Mobile Menu Button */}
       <Button
         variant="outline"

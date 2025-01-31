@@ -15,7 +15,7 @@ const Banner = () => {
       <div className="absolute inset-0 bg-black/50"></div>
 
       <div className="relative z-10 px-6 md:px-12 lg:px-24 text-white">
-        <h1 className="text-3xl md:text-5xl lg:text-6xl font-semibold ">
+        <h1 className="text-3xl md:text-5xl lg:text-7xl font-primaryFront">
           Memorable Gifts for Loved Ones
         </h1>
         <p className="mt-4 text-lg md:text-xl lg:text-xl text-gray-300">

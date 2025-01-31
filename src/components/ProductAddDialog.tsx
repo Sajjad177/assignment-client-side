@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -8,8 +9,8 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label"; 
-import { Plus } from "lucide-react";
+import { Label } from "@/components/ui/label";
+import { Plus, UploadCloud } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -19,14 +20,13 @@ import {
 } from "@/components/ui/select";
 import { Form } from "./ui/form";
 
-
 type ProductFormValues = {
   name: string;
   price: number;
   brand: string;
   quantity: number;
   category: string;
-  image?: string;
+  image?: File;
 };
 
 const ProductAddDialog = ({
@@ -44,17 +44,27 @@ const ProductAddDialog = ({
     handleSubmit,
     setValue,
     formState: { errors },
-  } = form; 
+  } = form;
+
+  const [image, setImage] = useState<File | null>(null);
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setImage(file);
+      setValue("image", event.target.files?.[0]);
+    }
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <Plus className="mr-2 h-4 w-4" />
+          <Plus className="mr-2 h-4 w-4 " />
           Add Product
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] font-primaryFront">
         <DialogHeader>
           <DialogTitle>Add New Product</DialogTitle>
         </DialogHeader>
@@ -62,7 +72,7 @@ const ProductAddDialog = ({
           Add your new product here.
         </DialogDescription>
         <Form {...form}>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 ">
             {/* Product Name */}
             <div className="space-y-2">
               <Label htmlFor="name">Product Name</Label>
@@ -105,14 +115,31 @@ const ProductAddDialog = ({
                 <p className="text-red-500 text-sm">{errors.brand.message}</p>
               )}
             </div>
-            {/* Image */}
+
+            {/* Image Uploader add there */}
             <div className="space-y-2">
-              <Label htmlFor="image">Image</Label>
-              <Input
-                id="image"
-                placeholder="Enter image name"
-                {...register("image", { required: "Image is required" })}
-              />
+              <Label htmlFor="image"> Image</Label>
+              <div
+                className="border-dashed border-2 border-gray-300 p-4 rounded-lg flex flex-col items-center cursor-pointer hover:border-gray-500"
+                onClick={() => document.getElementById("image")?.click()}
+              >
+                <UploadCloud className="w-6 h-6 text-gray-500" />
+                <p className="text-sm text-gray-600">
+                  Click to upload or drag and drop
+                </p>
+                <input
+                  type="file"
+                  id="image"
+                  name="image"
+                  className="hidden"
+                  accept="image/*"
+                  {...register("image")}
+                  onChange={handleImageChange}
+                />
+                {image && (
+                  <p className="text-sm mt-2 text-gray-700">{image.name}</p>
+                )}
+              </div>
               {errors.image && (
                 <p className="text-red-500 text-sm">{errors.image.message}</p>
               )}

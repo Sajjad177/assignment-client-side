@@ -33,13 +33,13 @@ import { useGetAllUsersQuery } from "@/redux/features/user/userManagement";
 const Products = () => {
   const [addProduct] = useAddProductMutation();
   const { data: AllProducts, isLoading } = useGetAllProductsQuery(undefined);
-  const {data : userData } = useGetAllUsersQuery(undefined);
+  const { data: userData } = useGetAllUsersQuery(undefined);
   const [deletedProduct] = useDeletedProductMutation();
 
-  // Get unique product and category
+
   const productList = AllProducts?.data || [];
   const userList = userData?.data || [];
-  // console.log("userList", userList);
+
   const uniqueCategories: any[] = [
     "All",
     ...Array.from(
@@ -50,7 +50,6 @@ const Products = () => {
   const [open, setOpen] = useState(false);
   const form = useForm();
 
-  // State for search and filters
   const [searchTerm, setSearchTerm] = useState("");
   const [priceRange, setPriceRange] = useState<number>(1000);
   const [category, setCategory] = useState<string>("All");
@@ -60,7 +59,7 @@ const Products = () => {
   const filteredProducts = productList
     .map((product: any) => ({
       ...product,
-      inStock: product.quantity > 0, 
+      inStock: product.quantity > 0,
     }))
     .filter((product: any) => {
       const matchesSearch = product?.name
@@ -79,11 +78,17 @@ const Products = () => {
       );
     });
 
+  // Handle form submit and add product
   const handleFormSubmit: SubmitHandler<FieldValues> = async (data) => {
     const toastId = toast.loading("Adding Product...");
     try {
-      const res = await addProduct(data).unwrap();
+      const formData = new FormData();
 
+      // append data and image
+      formData.append("data", JSON.stringify(data));
+      formData.append("image", data.image);
+
+      const res = await addProduct(formData).unwrap();
       if (res.error) {
         toast.error("Failed to add product", { id: toastId });
       } else {
@@ -94,6 +99,7 @@ const Products = () => {
       form.reset();
     } catch (error) {
       console.log(error);
+      toast.error("Failed to add product", { id: toastId });
     }
   };
 

@@ -7,7 +7,7 @@ import Featured from "../Featured";
 
 const MainLayout = () => {
   return (
-    <div className="font-primaryFront">
+    <div className="font-primary">
       <Navbar />
       <Outlet />
       <div className="mt-14">

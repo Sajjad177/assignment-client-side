@@ -8,6 +8,7 @@ const MyOrder = () => {
   const user = useAppSelector(selectCurrentUser);
   const { data } = useGetMyOrdersQuery(user?.userId);
   const orderDataList = data?.data || [];
+  console.log(orderDataList);
 
   return (
     <div className="container mx-auto p-6">
@@ -34,6 +35,7 @@ const MyOrder = () => {
                 <div className="grid grid-cols-2 gap-2 text-sm">
                   <span className="font-semibold">Amount:</span>
                   <span>{order?.product?.price}</span>
+
                   <span className="font-semibold">Status:</span>
                   <Badge
                     className={
@@ -44,8 +46,25 @@ const MyOrder = () => {
                   >
                     {order?.payment_status}
                   </Badge>
+
                   <span className="font-semibold">Date:</span>
                   <span>{order?.transaction?.date_time}</span>
+
+                  {/* Fixed Delivery Status Field */}
+                  <span className="font-semibold">Delivery Status:</span>
+                  <Badge
+                    className={
+                      order?.status === "Delivered"
+                        ? "bg-blue-500 text-white"
+                        : order?.status === "Shipped"
+                        ? "bg-yellow-500 text-white"
+                        : order?.status === "Cancelled"
+                        ? "bg-red-500 text-white"
+                        : "bg-gray-500 text-white"
+                    }
+                  >
+                    {order?.status}
+                  </Badge>
                 </div>
               </CardContent>
             </Card>

@@ -7,6 +7,7 @@ import AllProducts from "@/pages/AllProducts";
 import ProductDetails from "@/components/ProductDetails";
 import Cart from "@/pages/Cart";
 import PaymentSuccess from "@/components/Payment/PaymentSuccess";
+import OurStory from "@/components/ReleventFeatures";
 // import MainLayout from "@/components/layout/MainLayout";
 
 const router = createBrowserRouter([
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
   {
     path: "/products/:id",
     element: <ProductDetails />,
+  },
+  {
+    path: "/about-us",
+    element: <OurStory />,
   },
   {
     path: "/cart/:id",

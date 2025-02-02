@@ -3,7 +3,9 @@ import { Button } from "./ui/button";
 
 const Banner = () => {
   return (
-    <div className="relative w-full h-[65vh] md:h-[80vh] flex items-center justify-center text-center bg-cover bg-center">
+    <div
+      className="relative w-full h-[65vh] md:h-[80vh] flex items-center justify-center text-center bg-cover bg-center font-primaryFront"
+    >
       {/* Background Image */}
       <img
         src={bannerimg}
@@ -24,7 +26,7 @@ const Banner = () => {
           charming invitations.
         </p>
         <Button
-        //   variant="outline"
+          //   variant="outline"
           className="px-4 py-6 bg-teal-600 hover:bg-teal-700 text-white text-xl mt-6"
         >
           Shop Now

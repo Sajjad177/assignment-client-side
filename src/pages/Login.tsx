@@ -15,7 +15,7 @@ type LoginFormInputs = {
 };
 
 const Login = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const {
@@ -32,16 +32,12 @@ const Login = () => {
   const [login] = useLoginMutation();
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
-    // Proceed with login logic
-    // console.log("Login Data:", data);
     try {
       const userInfo = {
         email: data.email,
         password: data.password,
       };
       const res = await login(userInfo).unwrap();
-        // console.log("Login Response:", res);
-
       const user = verifyToken(res.data.token);
       dispatch(
         setUser({

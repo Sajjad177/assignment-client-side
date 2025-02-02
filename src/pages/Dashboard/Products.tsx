@@ -29,6 +29,7 @@ import {
 import { Pencil, Trash } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useGetAllUsersQuery } from "@/redux/features/user/userManagement";
+import Navbar from "@/components/Navbar";
 
 const Products = () => {
   const [addProduct] = useAddProductMutation();
@@ -123,162 +124,167 @@ const Products = () => {
   }
 
   return (
-    <div className="p-6 md:p-8">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
-        <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
-          Products
-        </h1>
-        <ProductAddDialog
-          open={open}
-          setOpen={setOpen}
-          form={form}
-          onSubmit={handleFormSubmit}
-        />
-      </div>
+    <div>
+      
+      <div className="p-6 md:p-8">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
+          <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
+            Products
+          </h1>
+          <ProductAddDialog
+            open={open}
+            setOpen={setOpen}
+            form={form}
+            onSubmit={handleFormSubmit}
+          />
+        </div>
 
-      <div className="p-4 md:p-6">
-        <Card className="p-4 md:p-6 bg-white dark:bg-gray-900 shadow-md rounded-lg">
-          <CardContent className="flex flex-col md:flex-row items-center gap-4 flex-wrap">
-            {/* Search Field */}
-            <Input
-              type="text"
-              placeholder="Search product..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full md:w-64"
-            />
-
-            {/* Price Range Slider */}
-            <div className="w-full md:w-64">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Price Range: ${priceRange}
-              </label>
-              <Slider
-                defaultValue={[priceRange]}
-                min={0}
-                max={1000}
-                step={10}
-                onValueChange={(value) => setPriceRange(value[0])}
-                className="w-full"
+        <div className="p-4 md:p-6">
+          <Card className="p-4 md:p-6 bg-white dark:bg-gray-900 shadow-md rounded-lg">
+            <CardContent className="flex flex-col md:flex-row items-center gap-4 flex-wrap">
+              {/* Search Field */}
+              <Input
+                type="text"
+                placeholder="Search product..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full md:w-64"
               />
-            </div>
 
-            {/* Category Filter */}
-            <Select value={category} onValueChange={setCategory}>
-              <SelectTrigger className="w-full md:w-56">
-                <SelectValue placeholder="Select a category" />
-              </SelectTrigger>
-              <SelectContent>
-                {uniqueCategories?.map((cat: string) => (
-                  <SelectItem key={cat} value={cat}>
-                    {cat?.charAt(0).toUpperCase() + cat?.slice(1)}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              {/* Price Range Slider */}
+              <div className="w-full md:w-64">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Price Range: ${priceRange}
+                </label>
+                <Slider
+                  defaultValue={[priceRange]}
+                  min={0}
+                  max={1000}
+                  step={10}
+                  onValueChange={(value) => setPriceRange(value[0])}
+                  className="w-full"
+                />
+              </div>
 
-            {/* Availability Filter */}
-            <Select value={availability} onValueChange={setAvailability}>
-              <SelectTrigger className="w-full md:w-56">
-                <SelectValue placeholder="Select availability" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="All">All</SelectItem>
-                <SelectItem value="in_stock">In Stock</SelectItem>
-                <SelectItem value="out_of_stock">Out of Stock</SelectItem>
-              </SelectContent>
-            </Select>
-          </CardContent>
-        </Card>
+              {/* Category Filter */}
+              <Select value={category} onValueChange={setCategory}>
+                <SelectTrigger className="w-full md:w-56">
+                  <SelectValue placeholder="Select a category" />
+                </SelectTrigger>
+                <SelectContent>
+                  {uniqueCategories?.map((cat: string) => (
+                    <SelectItem key={cat} value={cat}>
+                      {cat?.charAt(0).toUpperCase() + cat?.slice(1)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
 
-        {/* Product Table */}
-        <div className="mt-6 overflow-x-auto">
-          <Table className="w-full bg-white dark:bg-gray-900 shadow-lg rounded-lg">
-            <TableHeader>
-              <TableRow className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
-                <TableHead className="px-4 py-3">Product Name</TableHead>
-                <TableHead className="px-4 py-3">Author</TableHead>
-                <TableHead className="px-4 py-3">Category</TableHead>
-                <TableHead className="px-4 py-3">Price</TableHead>
-                <TableHead className="px-4 py-3">Availability</TableHead>
-                <TableHead className="px-4 py-3 text-center">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredProducts.length > 0 ? (
-                filteredProducts.map((product: any) => {
-                  const user = userList.find(
-                    (user: any) => user._id === product.author
-                  );
-                  return (
-                    <TableRow
-                      key={product._id}
-                      className="border-b hover:bg-gray-100 dark:hover:bg-gray-800"
-                    >
-                      <TableCell className="px-4 py-3">
-                        {product.name}
-                      </TableCell>
-                      <TableCell className="px-4 py-3">
-                        {user?.name || "Unknown"}
-                      </TableCell>
-                      <TableCell className="px-4 py-3">
-                        {product.category}
-                      </TableCell>
-                      <TableCell className="px-4 py-3">
-                        ${product.price}
-                      </TableCell>
-                      <TableCell className="px-4 py-3">
-                        {product.inStock ? (
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="p-2 text-green-500"
-                          >
-                            In Stock
-                          </Button>
-                        ) : (
-                          <Button
-                            variant="outline"
-                            disabled
-                            size="sm"
-                            className="p-2 text-red-500"
-                          >
-                            Out of Stock
-                          </Button>
-                        )}
-                      </TableCell>
-                      <TableCell className="px-4 py-3 flex justify-center gap-2">
-                        <Link to={`/dashboard/edit-product/${product._id}`}>
-                          <Button
-                            title="Edit"
-                            variant="outline"
-                            className="p-2 text-blue-500"
-                          >
-                            <Pencil size={16} />
-                          </Button>
-                        </Link>
-                        <Button
-                          title="Delete"
-                          variant="outline"
-                          className="p-2 text-red-500"
-                          onClick={() => handleDeleteProduct(product._id)}
-                        >
-                          <Trash size={16} />
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })
-              ) : (
-                <TableRow>
-                  <TableCell colSpan={6} className="text-center py-4">
-                    No products found
-                  </TableCell>
+              {/* Availability Filter */}
+              <Select value={availability} onValueChange={setAvailability}>
+                <SelectTrigger className="w-full md:w-56">
+                  <SelectValue placeholder="Select availability" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="All">All</SelectItem>
+                  <SelectItem value="in_stock">In Stock</SelectItem>
+                  <SelectItem value="out_of_stock">Out of Stock</SelectItem>
+                </SelectContent>
+              </Select>
+            </CardContent>
+          </Card>
+
+          {/* Product Table */}
+          <div className="mt-6 overflow-x-auto">
+            <Table className="w-full bg-white dark:bg-gray-900 shadow-lg rounded-lg">
+              <TableHeader>
+                <TableRow className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
+                  <TableHead className="px-4 py-3">Product Name</TableHead>
+                  <TableHead className="px-4 py-3">Author</TableHead>
+                  <TableHead className="px-4 py-3">Category</TableHead>
+                  <TableHead className="px-4 py-3">Price</TableHead>
+                  <TableHead className="px-4 py-3">Availability</TableHead>
+                  <TableHead className="px-4 py-3 text-center">
+                    Actions
+                  </TableHead>
                 </TableRow>
-              )}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {filteredProducts.length > 0 ? (
+                  filteredProducts.map((product: any) => {
+                    const user = userList.find(
+                      (user: any) => user._id === product.author
+                    );
+                    return (
+                      <TableRow
+                        key={product._id}
+                        className="border-b hover:bg-gray-100 dark:hover:bg-gray-800"
+                      >
+                        <TableCell className="px-4 py-3">
+                          {product.name}
+                        </TableCell>
+                        <TableCell className="px-4 py-3">
+                          {user?.name || "Unknown"}
+                        </TableCell>
+                        <TableCell className="px-4 py-3">
+                          {product.category}
+                        </TableCell>
+                        <TableCell className="px-4 py-3">
+                          ${product.price}
+                        </TableCell>
+                        <TableCell className="px-4 py-3">
+                          {product.inStock ? (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="p-2 text-green-500"
+                            >
+                              In Stock
+                            </Button>
+                          ) : (
+                            <Button
+                              variant="outline"
+                              disabled
+                              size="sm"
+                              className="p-2 text-red-500"
+                            >
+                              Out of Stock
+                            </Button>
+                          )}
+                        </TableCell>
+                        <TableCell className="px-4 py-3 flex justify-center gap-2">
+                          <Link to={`/dashboard/edit-product/${product._id}`}>
+                            <Button
+                              title="Edit"
+                              variant="outline"
+                              className="p-2 text-blue-500"
+                            >
+                              <Pencil size={16} />
+                            </Button>
+                          </Link>
+                          <Button
+                            title="Delete"
+                            variant="outline"
+                            className="p-2 text-red-500"
+                            onClick={() => handleDeleteProduct(product._id)}
+                          >
+                            <Trash size={16} />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={6} className="text-center py-4">
+                      No products found
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
         </div>
       </div>
     </div>

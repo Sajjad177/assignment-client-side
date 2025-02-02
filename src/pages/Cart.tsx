@@ -18,6 +18,7 @@ import { useAppSelector } from "@/redux/hook";
 import { selectCurrentUser } from "@/redux/features/auth/authSlice";
 import { useGetSingleUserQuery } from "@/redux/features/user/userManagement";
 import { toast } from "sonner";
+import Navbar from "@/components/Navbar";
 
 const Cart = () => {
   const { id } = useParams();
@@ -89,129 +90,134 @@ const Cart = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-10 font-primaryFront">
-      <h2 className="text-3xl font-bold text-purple-700 mb-6">Checkout</h2>
+    <div>
+      <Navbar />
+      <div className="container mx-auto px-4 py-10 font-primaryFront mt-10">
+        {/* <h2 className="text-3xl font-bold text-purple-700 mb-6">Checkout</h2> */}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Order Summary */}
-        <Card className="p-6 shadow-lg">
-          <h3 className="text-xl font-semibold mb-4">Order Summary</h3>
-          <CardContent className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            <img
-              src={product?.image}
-              alt={product?.name}
-              className="w-20 h-28 object-cover rounded-md"
-            />
-            <div className="flex-1">
-              <h4 className="text-lg font-medium">{product?.name}</h4>
-
-              <div className="mt-2">
-                <label className="text-sm text-gray-600">Quantity:</label>
-                <Controller
-                  name="quantity"
-                  control={control}
-                  render={({ field }) => (
-                    <Select
-                      onValueChange={(value) => setValue("quantity", value)}
-                      defaultValue={field.value}
-                    >
-                      <SelectTrigger className="w-24 mt-1">
-                        <SelectValue placeholder="Select quantity" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {quantityOptions.map((qty) => (
-                          <SelectItem key={qty} value={qty.toString()}>
-                            {qty}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  )}
-                />
-              </div>
-
-              <p className="text-lg font-semibold mt-2">
-                ${product?.price?.toFixed(2)}
-              </p>
-            </div>
-          </CardContent>
-          <hr className="my-4" />
-          <p className="text-lg font-semibold flex justify-between">
-            <span>Total:</span>
-            <span>${totalPrice.toFixed(2)}</span>
-          </p>
-        </Card>
-
-        {/* Shipping Details Form */}
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Order Summary */}
           <Card className="p-6 shadow-lg">
-            <h3 className="text-xl font-semibold mb-4">Shipping Details</h3>
-
-            <div className="space-y-4">
-              <Input
-                placeholder="Name"
-                {...register("name", { required: true })}
+            <h3 className="text-xl font-semibold mb-4">Order Summary</h3>
+            <CardContent className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <img
+                src={product?.image}
+                alt={product?.name}
+                className="w-20 h-28 object-cover rounded-md"
               />
-              {errors.name && (
-                <p className="text-red-500 text-sm">Name is required</p>
-              )}
+              <div className="flex-1">
+                <h4 className="text-lg font-medium">{product?.name}</h4>
 
-              <Input
-                type="text"
-                placeholder="Email"
-                {...register("email", { required: true })}
-              />
-              {errors.email && (
-                <p className="text-red-500 text-sm">Email is required</p>
-              )}
+                <div className="mt-2">
+                  <label className="text-sm text-gray-600">Quantity:</label>
+                  <Controller
+                    name="quantity"
+                    control={control}
+                    render={({ field }) => (
+                      <Select
+                        onValueChange={(value) => setValue("quantity", value)}
+                        defaultValue={field.value}
+                      >
+                        <SelectTrigger className="w-24 mt-1">
+                          <SelectValue placeholder="Select quantity" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {quantityOptions.map((qty) => (
+                            <SelectItem key={qty} value={qty.toString()}>
+                              {qty}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                </div>
 
-              <Input
-                type="tel"
-                placeholder="Phone"
-                {...register("phone", { required: true })}
-              />
-              {errors.phone && (
-                <p className="text-red-500 text-sm">Phone number is required</p>
-              )}
+                <p className="text-lg font-semibold mt-2">
+                  ${product?.price?.toFixed(2)}
+                </p>
+              </div>
+            </CardContent>
+            <hr className="my-4" />
+            <p className="text-lg font-semibold flex justify-between">
+              <span>Total:</span>
+              <span>${totalPrice.toFixed(2)}</span>
+            </p>
+          </Card>
 
-              <Input
-                placeholder="Address"
-                {...register("address", { required: true })}
-              />
-              {errors.address && (
-                <p className="text-red-500 text-sm">Address is required</p>
-              )}
+          {/* Shipping Details Form */}
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Card className="p-6 shadow-lg">
+              <h3 className="text-xl font-semibold mb-4">Shipping Details</h3>
 
-              <div className="flex gap-4">
+              <div className="space-y-4">
                 <Input
-                  placeholder="City"
-                  {...register("city", { required: true })}
+                  placeholder="Name"
+                  {...register("name", { required: true })}
                 />
-                {errors.city && (
-                  <p className="text-red-500 text-sm">City is required</p>
+                {errors.name && (
+                  <p className="text-red-500 text-sm">Name is required</p>
                 )}
 
                 <Input
-                  placeholder="Postal Code"
-                  {...register("postalCode", { required: true })}
+                  type="text"
+                  placeholder="Email"
+                  {...register("email", { required: true })}
                 />
-                {errors.postalCode && (
+                {errors.email && (
+                  <p className="text-red-500 text-sm">Email is required</p>
+                )}
+
+                <Input
+                  type="tel"
+                  placeholder="Phone"
+                  {...register("phone", { required: true })}
+                />
+                {errors.phone && (
                   <p className="text-red-500 text-sm">
-                    Postal code is required
+                    Phone number is required
                   </p>
                 )}
-              </div>
-            </div>
 
-            <Button
-              type="submit"
-              className="w-full mt-6 bg-teal-600 hover:bg-teal-700 text-white"
-            >
-              <ShoppingCart className="w-4 h-4 mr-2" />
-              Order Now
-            </Button>
-          </Card>
-        </form>
+                <Input
+                  placeholder="Address"
+                  {...register("address", { required: true })}
+                />
+                {errors.address && (
+                  <p className="text-red-500 text-sm">Address is required</p>
+                )}
+
+                <div className="flex gap-4">
+                  <Input
+                    placeholder="City"
+                    {...register("city", { required: true })}
+                  />
+                  {errors.city && (
+                    <p className="text-red-500 text-sm">City is required</p>
+                  )}
+
+                  <Input
+                    placeholder="Postal Code"
+                    {...register("postalCode", { required: true })}
+                  />
+                  {errors.postalCode && (
+                    <p className="text-red-500 text-sm">
+                      Postal code is required
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <Button
+                type="submit"
+                className="w-full mt-6 bg-teal-600 hover:bg-teal-700 text-white"
+              >
+                <ShoppingCart className="w-4 h-4 mr-2" />
+                Order Now
+              </Button>
+            </Card>
+          </form>
+        </div>
       </div>
     </div>
   );

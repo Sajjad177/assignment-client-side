@@ -23,7 +23,6 @@ import {
 } from "@/redux/features/Order/OrderManagement";
 import { useGetAllProductsQuery } from "@/redux/features/ProductManagement/productManagement";
 import { useGetAllUsersQuery } from "@/redux/features/user/userManagement";
-// import { Select } from "@radix-ui/react-select";
 import { Trash } from "lucide-react";
 import { toast } from "sonner";
 
@@ -41,11 +40,9 @@ const Orders = () => {
 
   // update order status
   const handelUpdateOrderStatus = async (id: string, status: string) => {
-    console.log(id, status);
     const toastId = toast.loading("Updating Order Status...");
     try {
       const res = await updateOrderStatus({ id, data: { status } }).unwrap();
-      console.log("response -> ", res);
       if (res.error) {
         toast.error(res.error, { id: toastId });
       } else {
@@ -84,6 +81,7 @@ const Orders = () => {
               <TableHead className="px-4 py-3">User Name</TableHead>
               <TableHead className="px-4 py-3">Category</TableHead>
               <TableHead className="px-4 py-3">Quantity</TableHead>
+              <TableHead className="px-4 py-3">Payment</TableHead>
               <TableHead className="px-4 py-3">Status</TableHead>
               <TableHead className="px-4 py-3 text-center">Actions</TableHead>
             </TableRow>
@@ -116,6 +114,9 @@ const Orders = () => {
 
                     <TableCell className="px-4 py-3">
                       {order.quantity}
+                    </TableCell>
+                    <TableCell className="px-4 py-3">
+                      {order.payment_status}
                     </TableCell>
                     <TableCell className="px-4 py-3">
                       <Select

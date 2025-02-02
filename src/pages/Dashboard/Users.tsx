@@ -22,7 +22,7 @@ const Users = () => {
     const toastId = toast.loading("Blocking User...");
     try {
       const res = await blockUser(id).unwrap();
-      console.log("response -> ", res);
+      // console.log("response -> ", res);
       if (res.error) {
         toast.error(res.error, { id: toastId });
       } else {

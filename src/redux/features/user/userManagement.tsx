@@ -9,6 +9,13 @@ const userManagement = baseApi.injectEndpoints({
       }),
       providesTags: ["User"],
     }),
+    getSingleUser: builder.query({
+      query: (id) => ({
+        url: `/user/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["User"],
+    }),
     blockUser: builder.mutation({
       query: (id) => ({
         url: `/user/${id}`,
@@ -19,4 +26,4 @@ const userManagement = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllUsersQuery, useBlockUserMutation } = userManagement;
+export const { useGetAllUsersQuery, useGetSingleUserQuery, useBlockUserMutation } = userManagement;

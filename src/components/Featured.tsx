@@ -3,7 +3,7 @@ import { useGetAllProductsQuery } from "@/redux/features/ProductManagement/produ
 const Featured = () => {
     const {data: ProductData} = useGetAllProductsQuery(undefined);
     const productList = ProductData?.data || [];
-    console.log(productList);
+    // console.log(productList);
     return (
         <div>
             

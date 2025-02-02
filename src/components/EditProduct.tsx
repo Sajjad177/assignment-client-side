@@ -57,7 +57,6 @@ const EditProduct = () => {
     const toastId = toast.loading("Updating Product...");
     try {
       const res = await updateProduct({ id, ...data }).unwrap();
-      console.log(res);
       toast.success("Product updated successfully", { id: toastId });
       navigate("/dashboard/products");
     } catch (error) {

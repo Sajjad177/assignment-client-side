@@ -1,6 +1,5 @@
 import {
   useGetAllProductsQuery,
-  useGetSingleProductQuery,
 } from "@/redux/features/ProductManagement/productManagement";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";

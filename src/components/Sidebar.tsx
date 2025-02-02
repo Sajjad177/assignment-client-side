@@ -1,7 +1,14 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Users, Menu, X, User, ShoppingBag, Box } from "lucide-react";
+import {
+  Users,
+  Menu,
+  X,
+  User,
+  ShoppingBag,
+  Box,
+} from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
 import { useAppSelector } from "@/redux/hook";
 import { selectCurrentUser } from "@/redux/features/auth/authSlice";
@@ -38,11 +45,16 @@ const Sidebar = () => {
         }
       );
       break;
+    // there show user routers
     case userRole.user:
       menuItems.push(
         // { icon: <Users className="w-4 h-4" />, name: "Users", href: "#" },
         { icon: <Box className="w-4 h-4" />, name: "Products", href: "#" },
-        { icon: <ShoppingBag className="w-4 h-4" />, name: "Orders", href: "#" }
+        {
+          icon: <ShoppingBag className="w-4 h-4" />,
+          name: "Orders",
+          href: `orders/${user.userId}`,
+        }
       );
       break;
     default:

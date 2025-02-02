@@ -5,12 +5,25 @@ import { createBrowserRouter } from "react-router-dom";
 import dashboardRoute from "./dashboardRoute";
 import AllProducts from "@/pages/AllProducts";
 import ProductDetails from "@/components/ProductDetails";
+import Cart from "@/pages/Cart";
+import PaymentSuccess from "@/components/Payment/PaymentSuccess";
+// import MainLayout from "@/components/layout/MainLayout";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    // element: <MainLayout />,
     element: <App />,
-    children: [],
+    // children: [
+    //   {
+    //     path: "/all-products",
+    //     element: <AllProducts />,
+    //   },
+    //   {
+    //     path: "/products/:id",
+    //     element: <ProductDetails />,
+    //   },
+    // ],
   },
   {
     path: "/dashboard",
@@ -24,6 +37,14 @@ const router = createBrowserRouter([
   {
     path: "/products/:id",
     element: <ProductDetails />,
+  },
+  {
+    path: "/cart/:id",
+    element: <Cart />,
+  },
+  {
+    path: "/orders/verify",
+    element: <PaymentSuccess />,
   },
   {
     path: "/login",

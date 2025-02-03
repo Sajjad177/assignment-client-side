@@ -48,7 +48,11 @@ const Sidebar = () => {
     // there show user routers
     case userRole.user:
       menuItems.push(
-        // { icon: <Users className="w-4 h-4" />, name: "Users", href: "#" },
+        {
+          icon: <User className="w-4 h-4" />,
+          name: "Profile",
+          href: "profile",
+        },
         { icon: <Box className="w-4 h-4" />, name: "Products", href: "#" },
         {
           icon: <ShoppingBag className="w-4 h-4" />,

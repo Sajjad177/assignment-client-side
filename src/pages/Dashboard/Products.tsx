@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import ProductAddDialog from "@/components/ProductAddDialog";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -7,17 +8,7 @@ import {
   useGetAllProductsQuery,
 } from "@/redux/features/ProductManagement/productManagement";
 import { toast } from "sonner";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Card, CardContent } from "@/components/ui/card";
-import { Slider } from "@/components/ui/slider";
 import {
   Table,
   TableBody,
@@ -30,13 +21,13 @@ import { Pencil, Trash } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useGetAllUsersQuery } from "@/redux/features/user/userManagement";
 import Navbar from "@/components/Navbar";
+import ProductFind from "@/components/ProductFind";
 
 const Products = () => {
   const [addProduct] = useAddProductMutation();
   const { data: AllProducts, isLoading } = useGetAllProductsQuery(undefined);
   const { data: userData } = useGetAllUsersQuery(undefined);
   const [deletedProduct] = useDeletedProductMutation();
-
 
   const productList = AllProducts?.data || [];
   const userList = userData?.data || [];
@@ -125,7 +116,7 @@ const Products = () => {
 
   return (
     <div>
-      
+      <Navbar />
       <div className="p-6 md:p-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
@@ -140,60 +131,19 @@ const Products = () => {
           />
         </div>
 
+        {/* Filters and Search option */}
         <div className="p-4 md:p-6">
-          <Card className="p-4 md:p-6 bg-white dark:bg-gray-900 shadow-md rounded-lg">
-            <CardContent className="flex flex-col md:flex-row items-center gap-4 flex-wrap">
-              {/* Search Field */}
-              <Input
-                type="text"
-                placeholder="Search product..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full md:w-64"
-              />
-
-              {/* Price Range Slider */}
-              <div className="w-full md:w-64">
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Price Range: ${priceRange}
-                </label>
-                <Slider
-                  defaultValue={[priceRange]}
-                  min={0}
-                  max={1000}
-                  step={10}
-                  onValueChange={(value) => setPriceRange(value[0])}
-                  className="w-full"
-                />
-              </div>
-
-              {/* Category Filter */}
-              <Select value={category} onValueChange={setCategory}>
-                <SelectTrigger className="w-full md:w-56">
-                  <SelectValue placeholder="Select a category" />
-                </SelectTrigger>
-                <SelectContent>
-                  {uniqueCategories?.map((cat: string) => (
-                    <SelectItem key={cat} value={cat}>
-                      {cat?.charAt(0).toUpperCase() + cat?.slice(1)}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              {/* Availability Filter */}
-              <Select value={availability} onValueChange={setAvailability}>
-                <SelectTrigger className="w-full md:w-56">
-                  <SelectValue placeholder="Select availability" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="All">All</SelectItem>
-                  <SelectItem value="in_stock">In Stock</SelectItem>
-                  <SelectItem value="out_of_stock">Out of Stock</SelectItem>
-                </SelectContent>
-              </Select>
-            </CardContent>
-          </Card>
+          <ProductFind
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            priceRange={priceRange}
+            setPriceRange={setPriceRange}
+            category={category}
+            setCategory={setCategory}
+            availability={availability}
+            setAvailability={setAvailability}
+            uniqueCategories={uniqueCategories}
+          />
 
           {/* Product Table */}
           <div className="mt-6 overflow-x-auto">

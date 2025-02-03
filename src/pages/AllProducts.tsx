@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import ProductFind from "@/components/ProductFind";
 import { useState } from "react";
+import Footer from "@/components/Footer";
 
 const AllProducts = () => {
   const { data: ProductData } = useGetAllProductsQuery(undefined);
@@ -49,6 +50,7 @@ const AllProducts = () => {
   return (
     <div>
       <Navbar />
+      {/* product find search, filter functions */}
       <div className="mt-14">
         <ProductFind
           searchTerm={searchTerm}
@@ -62,9 +64,9 @@ const AllProducts = () => {
           uniqueCategories={uniqueCategories}
         />
       </div>
+      {/* product show here */}
       <div className="container mx-auto p-6 font-primaryFront">
         <h2 className="text-2xl font-bold mb-6 text-center">All Products</h2>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {filteredProducts.map((product: any) => (
             <Card
@@ -83,16 +85,18 @@ const AllProducts = () => {
                   {product.name}
                 </CardTitle>
               </CardHeader>
-              <CardContent className="text-center">
+              <CardContent className="text-center flex flex-col justify-between">
                 <p className="text-gray-600">
                   Category:{" "}
-                  <span className="font-medium">{product.category}</span>
+                  <span className="font-medium text-teal-600">
+                    {product.category}
+                  </span>
                 </p>
                 <p className="text-gray-800 font-bold mt-2">
-                  Price: ${product.price}
+                  Price: <span className="text-teal-600">${product.price}</span>
                 </p>
                 <Link to={`/products/${product._id}`}>
-                  <Button className="mt-4 w-full bg-teal-600 hover:bg-teal-700 text-white">
+                  <Button className="mt-4 w-full bg-teal-600 hover:bg-teal-700 text-white py-3 px-4 rounded-lg ">
                     View Details
                   </Button>
                 </Link>
@@ -100,6 +104,9 @@ const AllProducts = () => {
             </Card>
           ))}
         </div>
+      </div>
+      <div className="lg:mt-[150px] md:mt-[100px] sm:mt-[0px]">
+        <Footer />
       </div>
     </div>
   );

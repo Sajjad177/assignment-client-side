@@ -35,20 +35,25 @@ const ProductFind: FC<ProductFindProps> = ({
 }) => {
   return (
     <div>
-      <Card className="p-4 md:p-6 bg-white dark:bg-gray-900  rounded-lg font-primaryFront">
+      <Card className="p-4 md:p-6 bg-white dark:bg-gray-900 rounded-lg font-primaryFront">
         <CardContent className="flex flex-col md:flex-row items-center justify-between gap-4 flex-wrap">
           {/* Search Field */}
-          <Input
-            type="text"
-            placeholder="Search product..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full md:w-64"
-          />
+          <div className="w-full md:w-64">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              Search Product
+            </label>
+            <Input
+              type="text"
+              placeholder="Search product..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full"
+            />
+          </div>
 
           {/* Price Range Slider */}
           <div className="w-full md:w-64">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Price Range: ${priceRange}
             </label>
             <Slider
@@ -62,30 +67,44 @@ const ProductFind: FC<ProductFindProps> = ({
           </div>
 
           {/* Category Filter */}
-          <Select value={category} onValueChange={setCategory}>
-            <SelectTrigger className="w-full md:w-56">
-              <SelectValue placeholder="Select a category" />
-            </SelectTrigger>
-            <SelectContent>
-              {uniqueCategories?.map((cat: string) => (
-                <SelectItem key={cat} value={cat} className="font-primaryFront">
-                  {cat?.charAt(0).toUpperCase() + cat?.slice(1)}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <div className="w-full md:w-56">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              Category
+            </label>
+            <Select value={category} onValueChange={setCategory}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select a category" />
+              </SelectTrigger>
+              <SelectContent>
+                {uniqueCategories?.map((cat: string) => (
+                  <SelectItem
+                    key={cat}
+                    value={cat}
+                    className="font-primaryFront"
+                  >
+                    {cat?.charAt(0).toUpperCase() + cat?.slice(1)}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
           {/* Availability Filter */}
-          <Select value={availability} onValueChange={setAvailability}>
-            <SelectTrigger className="w-full md:w-56">
-              <SelectValue placeholder="Select availability" />
-            </SelectTrigger>
-            <SelectContent className="font-primaryFront">
-              <SelectItem value="All">All</SelectItem>
-              <SelectItem value="in_stock">In Stock</SelectItem>
-              <SelectItem value="out_of_stock">Out of Stock</SelectItem>
-            </SelectContent>
-          </Select>
+          <div className="w-full md:w-56">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              Availability
+            </label>
+            <Select value={availability} onValueChange={setAvailability}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select availability" />
+              </SelectTrigger>
+              <SelectContent className="font-primaryFront">
+                <SelectItem value="All">All</SelectItem>
+                <SelectItem value="in_stock">In Stock</SelectItem>
+                <SelectItem value="out_of_stock">Out of Stock</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </CardContent>
       </Card>
     </div>

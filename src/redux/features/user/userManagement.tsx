@@ -31,6 +31,14 @@ const userManagement = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Userdetails"],
     }),
+    addUser: builder.mutation({
+      query: (data) => ({
+        url: "/user/create",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["User"],
+    })
   }),
 });
 
@@ -38,5 +46,6 @@ export const {
   useGetAllUsersQuery,
   useGetSingleUserQuery,
   useBlockUserMutation,
-  useUpdateUserDetailsMutation
+  useUpdateUserDetailsMutation,
+  useAddUserMutation
 } = userManagement;

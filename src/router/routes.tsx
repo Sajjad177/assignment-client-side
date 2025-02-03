@@ -8,23 +8,15 @@ import ProductDetails from "@/components/ProductDetails";
 import Cart from "@/pages/Cart";
 import PaymentSuccess from "@/components/Payment/PaymentSuccess";
 import OurStory from "@/components/ReleventFeatures";
+import ContractUs from "@/components/ContractUs";
+import Register from "@/pages/Register";
 // import MainLayout from "@/components/layout/MainLayout";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    // element: <MainLayout />,
     element: <App />,
-    // children: [
-    //   {
-    //     path: "/all-products",
-    //     element: <AllProducts />,
-    //   },
-    //   {
-    //     path: "/products/:id",
-    //     element: <ProductDetails />,
-    //   },
-    // ],
+    
   },
   {
     path: "/dashboard",
@@ -44,6 +36,11 @@ const router = createBrowserRouter([
     element: <OurStory />,
   },
   {
+    path: "/contact",
+    element: <ContractUs />,
+  },
+
+  {
     path: "/cart/:id",
     element: <Cart />,
   },
@@ -55,6 +52,10 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
+  {
+    path: "register",
+    element: <Register />,
+  }
 ]);
 
 export default router;

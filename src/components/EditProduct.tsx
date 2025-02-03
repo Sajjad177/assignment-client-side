@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -17,7 +17,19 @@ import {
   useUpdateProductMutation,
 } from "@/redux/features/ProductManagement/productManagement";
 import { Form } from "./ui/form";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Textarea } from "./ui/textarea";
+import { UploadCloud } from "lucide-react";
+
+type ProductFormValues = {
+  name: string;
+  price: number;
+  brand: string;
+  image: File | string;
+  quantity: number;
+  category: string;
+  description: string;
+};
 
 const EditProduct = () => {
   const { id } = useParams();
@@ -25,18 +37,21 @@ const EditProduct = () => {
   const { data } = useGetSingleProductQuery(id);
   const product = data?.data;
 
-  const { register, handleSubmit, setValue, form } = useForm({
+  const form = useForm<ProductFormValues>({
     defaultValues: {
-      name: product?.name || "",
-      price: product?.price || "",
-      brand: product?.brand || "",
-      image: product?.image || "",
-      quantity: product?.quantity || "",
-      category: product?.category || "",
+      name: "",
+      price: 0,
+      brand: "",
+      image: "",
+      quantity: 0,
+      category: "",
+      description: "",
     },
   });
 
+  const { register, handleSubmit, setValue } = form;
   const [updateProduct] = useUpdateProductMutation();
+  const [image, setImage] = useState<File | null>(null);
 
   useEffect(() => {
     if (product) {
@@ -46,17 +61,35 @@ const EditProduct = () => {
       setValue("image", product.image);
       setValue("quantity", product.quantity);
       setValue("category", product.category);
+      setValue("description", product.description);
     }
   }, [product, setValue]);
 
-  const handleSelectChange = (value: string, field: string) => {
+  const handleSelectChange = (
+    value: string,
+    field: keyof ProductFormValues
+  ) => {
     setValue(field, value);
   };
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setImage(file);
+      setValue("image", file);
+    }
+  };
+
+  const onSubmit: SubmitHandler<ProductFormValues> = async (data) => {
     const toastId = toast.loading("Updating Product...");
     try {
-      const res = await updateProduct({ id, ...data }).unwrap();
+      const formData = new FormData();
+
+      // append data and image
+      formData.append("data", JSON.stringify(data));
+      formData.append("image", data.image);
+
+      await updateProduct({ id, data: formData }).unwrap();
       toast.success("Product updated successfully", { id: toastId });
       navigate("/dashboard/products");
     } catch (error) {
@@ -105,14 +138,35 @@ const EditProduct = () => {
                 />
               </div>
 
-              {/* Image URL */}
-              <div>
-                <Label htmlFor="image">Image URL</Label>
-                <Input
-                  id="image"
-                  {...register("image")}
-                  placeholder="Enter image URL"
-                />
+              {/* Image Uploader add there */}
+              <div className="space-y-2">
+                <Label htmlFor="image"> Image</Label>
+                <div
+                  className="border-dashed border-2 border-gray-300 p-4 rounded-lg flex flex-col items-center cursor-pointer hover:border-gray-500"
+                  onClick={() => document.getElementById("image")?.click()}
+                >
+                  <UploadCloud className="w-6 h-6 text-gray-500" />
+                  <p className="text-sm text-gray-600">
+                    Click to upload or drag and drop
+                  </p>
+                  <input
+                    type="file"
+                    id="image"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(event) => {
+                      handleImageChange(event);
+                      const file = event.target.files?.[0];
+                      if (file) {
+                        setValue("image", file);
+                      }
+                    }}
+                  />
+
+                  {image && (
+                    <p className="text-sm mt-2 text-gray-700">{image.name}</p>
+                  )}
+                </div>
               </div>
 
               {/* Quantity */}
@@ -149,6 +203,18 @@ const EditProduct = () => {
                     <SelectItem value="Technology">Technology</SelectItem>
                   </SelectContent>
                 </Select>
+              </div>
+
+              {/* Description */}
+              <div className="space-y-2">
+                <Label htmlFor="description">Description</Label>
+                <Textarea
+                  id="description"
+                  placeholder="Enter product description"
+                  {...register("description", {
+                    required: "Description is required",
+                  })}
+                />
               </div>
 
               {/* Submit Button */}

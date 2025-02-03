@@ -87,9 +87,6 @@ const Profile = () => {
             <p className="text-gray-500 dark:text-gray-400 text-xl font-bold">
               {formData.email}
             </p>
-            <p className="mt-2 text-gray-600 dark:text-gray-300">
-              {"This is my bio"}
-            </p>
           </div>
         </div>
         <div className="mt-4 md:mt-0 flex items-center gap-4">
@@ -101,12 +98,17 @@ const Profile = () => {
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle className="font-primaryFront">Edit Profile</DialogTitle>
+                <DialogTitle className="font-primaryFront">
+                  Edit Profile
+                </DialogTitle>
               </DialogHeader>
               <Description hidden>
                 Make changes to your profile here. Click save when you're done.
               </Description>
-              <form onSubmit={handleSubmit} className="space-y-4 font-primaryFront">
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-4 font-primaryFront"
+              >
                 <div>
                   <Label htmlFor="name">Name</Label>
                   <Input
@@ -152,7 +154,6 @@ const Profile = () => {
               </form>
             </DialogContent>
           </Dialog>
-          
         </div>
       </div>
     </div>

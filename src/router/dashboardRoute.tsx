@@ -3,33 +3,38 @@ import Orders from "@/pages/Dashboard/Orders";
 import Products from "@/pages/Dashboard/Products";
 import Profile from "@/pages/Dashboard/Profile";
 import Users from "@/pages/Dashboard/Users";
+import Dashboard from "@/pages/Dashboard/Users/Dashboard";
 import MyOrder from "@/pages/Dashboard/Users/MyOrder";
 
 const dashboardRoute = [
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+  },
   {
     path: "profile",
     element: <Profile />,
   },
   {
     path: "users",
-    element : <Users/>
+    element: <Users />,
   },
   {
-    path : "products",
-    element : <Products/>
+    path: "products",
+    element: <Products />,
   },
   {
-    path : "edit-product/:id",
-    element : <EditProduct/>
+    path: "edit-product/:id",
+    element: <EditProduct />,
   },
   {
     path: "orders",
-    element : <Orders/>
+    element: <Orders />,
   },
   {
-    path : "orders/:id",
-    element : <MyOrder/>
-  }
+    path: "orders/:id",
+    element: <MyOrder />,
+  },
 ];
 
 export default dashboardRoute;

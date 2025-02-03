@@ -19,6 +19,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Form } from "./ui/form";
+import { Textarea } from "./ui/textarea";
+import { UseFormReturn } from "react-hook-form";
 
 type ProductFormValues = {
   name: string;
@@ -26,6 +28,7 @@ type ProductFormValues = {
   brand: string;
   quantity: number;
   category: string;
+  description?: string;
   image?: File;
 };
 
@@ -37,6 +40,7 @@ const ProductAddDialog = ({
 }: {
   open: boolean;
   setOpen: (open: boolean) => void;
+  form: UseFormReturn<ProductFormValues>;
   onSubmit: (data: ProductFormValues) => void;
 }) => {
   const {
@@ -130,12 +134,14 @@ const ProductAddDialog = ({
                 <input
                   type="file"
                   id="image"
-                  name="image"
-                  className="hidden"
                   accept="image/*"
-                  {...register("image")}
-                  onChange={handleImageChange}
+                  className="hidden"
+                  onChange={(event) => {
+                    handleImageChange(event); // ✅ Custom handler
+                    setValue("image", event.target.files?.[0]); // ✅ Manually update form value
+                  }}
                 />
+
                 {image && (
                   <p className="text-sm mt-2 text-gray-700">{image.name}</p>
                 )}
@@ -184,6 +190,23 @@ const ProductAddDialog = ({
               {errors.category && (
                 <p className="text-red-500 text-sm">
                   {errors.category.message}
+                </p>
+              )}
+            </div>
+
+            {/* Description */}
+            <div className="space-y-2">
+              <Label htmlFor="description">Description</Label>
+              <Textarea
+                id="description"
+                placeholder="Enter product description"
+                {...register("description", {
+                  required: "Description is required",
+                })}
+              />
+              {errors.description && (
+                <p className="text-red-500 text-sm">
+                  {errors.description.message}
                 </p>
               )}
             </div>

@@ -7,7 +7,7 @@ import { useLoginMutation } from "@/redux/features/auth/authApi";
 import { useAppDispatch } from "@/redux/hook";
 import { setUser } from "@/redux/features/auth/authSlice";
 import { verifyToken } from "@/utils/verifyToken";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 type LoginFormInputs = {
   email: string;
@@ -45,7 +45,6 @@ const Login = () => {
           token: res.data.token,
         })
       );
-      //! add there dynamic route for protected route
       navigate("/");
       toast.success("Login successful");
     } catch (error) {
@@ -55,7 +54,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 font-primaryFront">
       <Card className="w-full max-w-md p-4">
         <CardHeader>
           <CardTitle className="text-center text-2xl font-bold">
@@ -115,7 +114,12 @@ const Login = () => {
                 </p>
               )}
             </div>
-
+            <p>
+              Don't have an account?{" "}
+              <Link to="/register" className="text-blue-500">
+                Register
+              </Link>
+            </p>
             {/* Submit Button */}
             <Button type="submit" className="w-full">
               Login

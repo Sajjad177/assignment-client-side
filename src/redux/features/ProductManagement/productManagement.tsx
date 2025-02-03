@@ -32,7 +32,7 @@ const productManagement = baseApi.injectEndpoints({
       providesTags: ["Product"],
     }),
     updateProduct: builder.mutation({
-      query: ({ id, ...data }) => ({
+      query: ({ id, data }) => ({
         url: `/products/${id}`,
         method: "PUT",
         body: data,

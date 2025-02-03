@@ -8,6 +8,7 @@ import {
   User,
   ShoppingBag,
   Box,
+  LayoutDashboard,
 } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
 import { useAppSelector } from "@/redux/hook";
@@ -27,6 +28,11 @@ const Sidebar = () => {
   switch (user!.role) {
     case userRole.admin:
       menuItems.push(
+        {
+          icon: <LayoutDashboard className="w-4 h-4" />,
+          name: "Dashboard",
+          href: "/dashboard",
+        },
         {
           icon: <User className="w-4 h-4" />,
           name: "Profile",
@@ -48,6 +54,11 @@ const Sidebar = () => {
     // there show user routers
     case userRole.user:
       menuItems.push(
+        {
+          icon: <LayoutDashboard className="w-4 h-4" />,
+          name: "Dashboard",
+          href: "/dashboard",
+        },
         {
           icon: <User className="w-4 h-4" />,
           name: "Profile",

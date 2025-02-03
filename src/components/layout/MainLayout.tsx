@@ -1,20 +1,20 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "../Navbar";
 import Banner from "../Banner";
+import CustomerBlogs from "../CustomerReview";
+import FeaturedProducts from "../FeaturedProducts";
 import Footer from "../Footer";
-import Featured from "../Featured";
-import CustomerReview from "../CustomerReview";
+import Navbar from "../Navbar";
 
 const MainLayout = () => {
   return (
-    <div className="font-primary">
+    <div className="font-primaryFront bg-gray-100">
       <Navbar />
       <Outlet />
       <div className="mt-14">
         <Banner />
       </div>
-      <CustomerReview />
-      <Featured />
+      <FeaturedProducts />
+      <CustomerBlogs />
       <Footer />
     </div>
   );

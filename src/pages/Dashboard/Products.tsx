@@ -26,6 +26,7 @@ import ProductFind from "@/components/ProductFind";
 const Products = () => {
   const [addProduct] = useAddProductMutation();
   const { data: AllProducts, isLoading } = useGetAllProductsQuery(undefined);
+
   const { data: userData } = useGetAllUsersQuery(undefined);
   const [deletedProduct] = useDeletedProductMutation();
 

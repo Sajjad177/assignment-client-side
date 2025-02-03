@@ -19,13 +19,14 @@ const userRole = {
   user: "user",
 };
 
+
 const Sidebar = () => {
   const user = useAppSelector(selectCurrentUser);
   const [isOpen, setIsOpen] = useState(false);
 
   const menuItems = [];
 
-  switch (user!.role) {
+  switch (user?.role) {
     case userRole.admin:
       menuItems.push(
         {
@@ -64,11 +65,10 @@ const Sidebar = () => {
           name: "Profile",
           href: "profile",
         },
-        { icon: <Box className="w-4 h-4" />, name: "Products", href: "#" },
         {
           icon: <ShoppingBag className="w-4 h-4" />,
           name: "Orders",
-          href: `orders/${user.userId}`,
+          href: `orders/${user?.userId}`,
         }
       );
       break;

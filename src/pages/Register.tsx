@@ -21,7 +21,7 @@ const Register = () => {
     formState: { errors },
   } = useForm<RegisterFormInput>();
 
-  const onSubmit: SubmitHandler<RegisterFormInput> = (data) => {
+  const onSubmit: SubmitHandler<RegisterFormInput> = async (data) => {
     const toastId = toast.loading("Creating User");
     try {
       const userInfo = {
@@ -30,13 +30,20 @@ const Register = () => {
         password: data.password,
       };
 
-      const res = addUser(userInfo).unwrap();
-      console.log(res);
-      toast.success("User created successfully", { id: toastId });
+      const res = await addUser(userInfo).unwrap();
+      if (res.error) {
+        toast.error(res.error || "user registration failed", { id: toastId });
+      } else {
+        toast.success(res.message || "user registered successfully", {
+          id: toastId,
+        });
+      }
       navigate("/login");
     } catch (error) {
       console.log(error);
-      toast.error("Failed to create user", { id: toastId });
+      toast.error(error?.data?.message || "user registration failed", {
+        id: toastId,
+      });
     }
   };
 

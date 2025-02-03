@@ -5,13 +5,11 @@ import { Button } from "./ui/button";
 import { LogOut, Menu, X } from "lucide-react";
 import { logOut, selectCurrentUser } from "@/redux/features/auth/authSlice";
 
-// Define the type for navigation items
 type NavItem = {
   name: string;
   href: string;
 };
 
-// Navigation items
 const navItems: NavItem[] = [
   { name: "Home", href: "/" },
   { name: "Products", href: "/all-products" },
@@ -125,7 +123,7 @@ const Navbar = () => {
                 key={item.name}
                 to={item.href}
                 className="block text-gray-800 hover:text-gray-600 px-3 py-2"
-                onClick={toggleMenu} // Close menu on click
+                onClick={toggleMenu}
               >
                 {item.name}
               </Link>
@@ -140,11 +138,7 @@ const Navbar = () => {
                         Dashboard{" "}
                       </Button>
                     </Link>
-                    <Button
-                      onClick={handleLogout}
-                      // variant="outline"
-                      className="px-4"
-                    >
+                    <Button onClick={handleLogout} className="px-4">
                       <LogOut className="ml-1 h-4 w-4" />
                       Logout
                     </Button>

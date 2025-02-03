@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import ProductAddDialog from "@/components/ProductAddDialog";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -22,6 +21,7 @@ import { Link } from "react-router-dom";
 import { useGetAllUsersQuery } from "@/redux/features/user/userManagement";
 import Navbar from "@/components/Navbar";
 import ProductFind from "@/components/ProductFind";
+import { ProductFormValues } from "@/types/globalType";
 
 const Products = () => {
   const [addProduct] = useAddProductMutation();
@@ -41,7 +41,7 @@ const Products = () => {
   ];
 
   const [open, setOpen] = useState(false);
-  const form = useForm();
+  const form = useForm<ProductFormValues>();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [priceRange, setPriceRange] = useState<number>(1000);

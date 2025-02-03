@@ -8,7 +8,7 @@ const MyOrder = () => {
   const user = useAppSelector(selectCurrentUser);
   const { data } = useGetMyOrdersQuery(user?.userId);
   const orderDataList = data?.data || [];
-  console.log(orderDataList);
+
 
   return (
     <div className="container mx-auto p-6">
@@ -17,7 +17,7 @@ const MyOrder = () => {
         <p className="text-center text-gray-500">No orders found.</p>
       ) : (
         <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {orderDataList.map((order) => (
+          {orderDataList.map((order : any) => (
             <Card key={order._id}>
               <CardHeader>
                 <CardTitle>

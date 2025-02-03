@@ -38,7 +38,7 @@ const userManagement = baseApi.injectEndpoints({
         body: data,
       }),
       invalidatesTags: ["User"],
-    })
+    }),
   }),
 });
 
@@ -47,5 +47,5 @@ export const {
   useGetSingleUserQuery,
   useBlockUserMutation,
   useUpdateUserDetailsMutation,
-  useAddUserMutation
+  useAddUserMutation,
 } = userManagement;

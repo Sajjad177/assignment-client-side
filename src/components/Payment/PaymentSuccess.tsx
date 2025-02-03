@@ -140,14 +140,6 @@ const PaymentSuccess = () => {
             </dl>
           </CardContent>
         </Card>
-
-        {/* <div className="mt-6 flex justify-center">
-        <Link to= {`orders/${user?.userId}`}>
-          <Button className="px-6 py-2 text-lg bg-teal-600 hover:bg-teal-700 ">
-            View Orders
-          </Button>
-        </Link>
-      </div> */}
       </div>
     </div>
   );

@@ -22,12 +22,7 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormInputs>({
-    defaultValues: {
-      email: "demo@example.com",
-      password: "123456",
-    },
-  });
+  } = useForm<LoginFormInputs>();
 
   const [login] = useLoginMutation();
 
@@ -121,7 +116,7 @@ const Login = () => {
               </Link>
             </p>
             {/* Submit Button */}
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full bg-teal-600 hover:bg-teal-700 ">
               Login
             </Button>
           </form>

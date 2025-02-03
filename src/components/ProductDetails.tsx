@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Star, ShoppingCart } from "lucide-react";
 import { useGetAllUsersQuery } from "@/redux/features/user/userManagement";
 import Navbar from "./Navbar";
+import PageLoading from "./PageLoading";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -16,7 +17,11 @@ const ProductDetails = () => {
   const user = users?.find((user: any) => user._id === product?.author);
 
   if (!product)
-    return <p className="text-center text-lg font-semibold py-8">Loading...</p>;
+    return (
+      <div className="text-center mt-20">
+        <PageLoading />
+      </div>
+    );
 
   return (
     <div>

@@ -10,17 +10,22 @@ import PaymentSuccess from "@/components/Payment/PaymentSuccess";
 import OurStory from "@/components/ReleventFeatures";
 import ContractUs from "@/components/ContractUs";
 import Register from "@/pages/Register";
-// import MainLayout from "@/components/layout/MainLayout";
+import ProtectedRoute from "@/components/layout/ProtectedRoute";
+import ErrorPage from "@/pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    errorElement: <ErrorPage />,
     element: <App />,
-    
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: (
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>
+    ),
     children: dashboardRoute,
   },
   {
@@ -42,11 +47,20 @@ const router = createBrowserRouter([
 
   {
     path: "/cart/:id",
-    element: <Cart />,
+    element: (
+      <ProtectedRoute>
+        <Cart />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/orders/verify",
-    element: <PaymentSuccess />,
+    element: (
+      <ProtectedRoute>
+        {" "}
+        <PaymentSuccess />{" "}
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/login",
@@ -55,7 +69,7 @@ const router = createBrowserRouter([
   {
     path: "register",
     element: <Register />,
-  }
+  },
 ]);
 
 export default router;

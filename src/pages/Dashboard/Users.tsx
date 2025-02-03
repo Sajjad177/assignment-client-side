@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import PageLoading from "@/components/PageLoading";
 
 const Users = () => {
   const { data: AllUsers, isLoading } = useGetAllUsersQuery(undefined);
@@ -35,7 +36,11 @@ const Users = () => {
   };
 
   if (isLoading) {
-    return <div className="text-center text-lg font-semibold">Loading...</div>;
+    return (
+      <div className="text-center mt-20">
+        <PageLoading />
+      </div>
+    );
   }
 
   return (
@@ -67,21 +72,13 @@ const Users = () => {
                   </TableCell>
                   <TableCell className="px-4 py-3 text-center">
                     <div className="flex justify-center gap-2">
-                      {/* <Button
-                        variant="outline"
-                        style={{ color: "green" }}
-                        size="sm"
-                        className="p-2"
-                      >
-                        Unblock
-                      </Button> */}
                       <Button
                         variant="outline"
                         size="sm"
                         className="p-2"
                         style={{
                           color: "red",
-                          cursor: user.isBlocked ? "not-allowed" : "pointer", 
+                          cursor: user.isBlocked ? "not-allowed" : "pointer",
                         }}
                         disabled={user.isBlocked}
                         onClick={() => handleBlockUser(user._id)}

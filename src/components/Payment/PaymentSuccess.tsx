@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { useAppSelector } from "@/redux/hook";
 import { selectCurrentUser } from "@/redux/features/auth/authSlice";
 import Navbar from "../Navbar";
+import PageLoading from "../PageLoading";
 
 interface OrderData {
   id: number;
@@ -55,7 +56,9 @@ const PaymentSuccess = () => {
   const orderData: OrderData = data?.data?.[0];
 
   if (isLoading) {
-    <div>loading......</div>;
+    <div className="text-center mt-20">
+      <PageLoading />
+    </div>;
   }
 
   return (

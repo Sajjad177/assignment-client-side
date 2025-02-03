@@ -19,7 +19,6 @@ const userRole = {
   user: "user",
 };
 
-
 const Sidebar = () => {
   const user = useAppSelector(selectCurrentUser);
   const [isOpen, setIsOpen] = useState(false);
@@ -34,11 +33,6 @@ const Sidebar = () => {
           name: "Dashboard",
           href: "/dashboard",
         },
-        {
-          icon: <User className="w-4 h-4" />,
-          name: "Profile",
-          href: "profile",
-        },
         { icon: <Users className="w-4 h-4" />, name: "Users", href: "users" },
         {
           icon: <Box className="w-4 h-4" />,
@@ -49,6 +43,11 @@ const Sidebar = () => {
           icon: <ShoppingBag className="w-4 h-4" />,
           name: "Orders",
           href: "orders",
+        },
+        {
+          icon: <User className="w-4 h-4" />,
+          name: "Profile",
+          href: "profile",
         }
       );
       break;
@@ -60,15 +59,16 @@ const Sidebar = () => {
           name: "Dashboard",
           href: "/dashboard",
         },
-        {
-          icon: <User className="w-4 h-4" />,
-          name: "Profile",
-          href: "profile",
-        },
+
         {
           icon: <ShoppingBag className="w-4 h-4" />,
           name: "Orders",
           href: `orders/${user?.userId}`,
+        },
+        {
+          icon: <User className="w-4 h-4" />,
+          name: "Profile",
+          href: "profile",
         }
       );
       break;

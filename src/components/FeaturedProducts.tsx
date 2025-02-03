@@ -19,7 +19,7 @@ const FeaturedProducts = () => {
             key={product._id}
             className="shadow-lg hover:shadow-xl transition duration-300 rounded-lg overflow-hidden border border-gray-200"
           >
-            <div className="w-full h-48 overflow-hidden">
+            <div className="w-full aspect-[4/3] overflow-hidden">
               <img
                 src={product?.image}
                 alt={product.name}

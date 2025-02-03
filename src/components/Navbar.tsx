@@ -133,7 +133,7 @@ const Navbar = () => {
                 <>
                   <>
                     <Link to="/dashboard">
-                      <Button variant="outline" className="px-4">
+                      <Button  className="px-4">
                         {" "}
                         Dashboard{" "}
                       </Button>

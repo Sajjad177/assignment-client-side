@@ -22,6 +22,7 @@ import { useGetAllUsersQuery } from "@/redux/features/user/userManagement";
 import Navbar from "@/components/Navbar";
 import ProductFind from "@/components/ProductFind";
 import { ProductFormValues } from "@/types/globalType";
+import PageLoading from "@/components/PageLoading";
 
 const Products = () => {
   const [addProduct] = useAddProductMutation();
@@ -112,7 +113,11 @@ const Products = () => {
   };
 
   if (isLoading) {
-    return <div className="text-center text-lg font-semibold">Loading...</div>;
+    return (
+      <div className="text-center mt-20">
+        <PageLoading />
+      </div>
+    );
   }
 
   return (

@@ -4,6 +4,7 @@ import secondImage from "../../src/assets/images/banner-3.jpg";
 import thirdImage from "../../src/assets/images/banner-4.jpg";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import OurMission from "./OurMission";
 
 const OurStory = () => {
   return (
@@ -49,6 +50,7 @@ const OurStory = () => {
           </div>
         </div>
       </section>
+      <OurMission />
       <div className="lg:mt-[200px] md:mt-[130px] sm:mt-[100px]">
         <Footer />
       </div>

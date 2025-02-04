@@ -6,9 +6,9 @@
 
 ## 📜 Project Overview :
 
-### Project Concept** : Note & Nest stationery Haven is a modern and user-friendly e-commerce platform designed to provide a seamless shopping experience for all stationery lovers. The website features a wide range of high-quality stationery products, including notebooks, pens, art supplies, office essentials, and more.
+### Project Concept: Note & Nest stationery Haven is a modern and user-friendly e-commerce platform designed to provide a seamless shopping experience for all stationery lovers. The website features a wide range of high-quality stationery products, including notebooks, pens, art supplies, office essentials, and more.
 
-### Problem Solved** : A well-designed stationery e-commerce platform like Stationery Haven addresses multiple problems for both customers and business owners.
+### Problem Solved: A well-designed stationery e-commerce platform like Stationery Haven addresses multiple problems for both customers and business owners.
 -**Detailed product descriptions, images, and customer reviews help users make informed decisions.
 -**Stock availability indicators help users know what’s in stock before purchasing.
 -**User can payment and see delivery details and modeify his details.

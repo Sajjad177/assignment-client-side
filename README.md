@@ -36,19 +36,6 @@ A well-designed stationery e-commerce platform like **Note & Nest** solves multi
 
 ---
 
-## 🛠️ Tech Stack  
-
-| Technology | Purpose |
-|------------|---------|
-| **React.js** | Frontend Framework |
-| **Node.js & Express.js** | Backend API |
-| **MongoDB** | Database |
-| **Firebase Authentication** | User Authentication |
-| **Stripe** | Payment Gateway |
-| **CSS Modules** | Styling |
-
----
-
 ## 🚀 Getting Started  
 
 ### 📥 Clone the Repository  

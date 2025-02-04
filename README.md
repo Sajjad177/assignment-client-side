@@ -1,47 +1,66 @@
-# Note & Nest
+# 📝 Note & Nest – Stationery Haven
 
-### 🌐 [Live link to Note & Nest](https://frontend-note-and-nest.vercel.app) 🌐
+### 🌐 [Live Demo](https://frontend-note-and-nest.vercel.app)  
 
-<br/>
-
-## 📜 Project Overview :
-
-### Project Concept: Note & Nest stationery Haven is a modern and user-friendly e-commerce platform designed to provide a seamless shopping experience for all stationery lovers. The website features a wide range of high-quality stationery products, including notebooks, pens, art supplies, office essentials, and more.
-
-### Problem Solved: A well-designed stationery e-commerce platform like Stationery Haven addresses multiple problems for both customers and business owners.
--**Detailed product descriptions, images, and customer reviews help users make informed decisions.
--**Stock availability indicators help users know what’s in stock before purchasing.
--**User can payment and see delivery details and modeify his details.
 ---
 
-## 🌟 Features
+## 📜 Project Overview  
 
-### User Experience & Interface :
-- **Responsive Design** Fully optimized for desktop, tablet, and mobile devices.
+### 📌 Concept  
+**Note & Nest** is a modern, user-friendly e-commerce platform designed for stationery lovers. It provides a seamless shopping experience with high-quality stationery products, including notebooks, pens, art supplies, office essentials, and more.  
 
-### Product Management & Shopping Experience :
-- **Detailed Product Listingsr-Each product includes high-quality images, descriptions, prices, and stock availability.
-- **Advanced Search & Filtering**-Users can filter products by category, price range, ratings, and more.
-- **Shopping Cart & Checkout**-Smooth checkout experience with a secure payment gateway.
+### 🚀 Problem Solved  
+A well-designed stationery e-commerce platform like **Note & Nest** solves multiple challenges for customers and business owners:  
 
-### Admin Dashboard :
-- **Product & Inventory Management**-Add, update, and remove products easily.
-- **Order & Payment Management**-View and manage customer orders, process payments.
-- **User Management**-Control user roles and access levels for better security.
+**Detailed Product Information** – High-quality images, descriptions, and customer reviews help users make informed decisions.  
+**Stock Availability Indicators** – Users can check stock status before purchasing.  
+**Secure Payment & Delivery** – Users can securely pay, view delivery details, and modify their order information.  
+
 ---
 
-## How to Clone and Run the Project Locally : 
-1. **Clone the repository:**
-   - First, you need to clone the **client** and **server side**. Open your terminal and type:
-     ```bash
-     git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
-     ```
-2. **Navigate to the Project Folder:**
-     ```bash
-    cd your-repo-name
-     ```
-2. **Open files in VS Code:**
+## 🌟 Features  
+
+### 🖥️ **User Experience & Interface**  
+- **Fully Responsive Design** – Optimized for desktops, tablets, and mobile devices.  
+- **Smooth Animations** – Modern UI with smooth transitions for an elegant experience.  
+
+### 🛒 **Product Management & Shopping Experience**  
+- **Detailed Product Listings** – Each product includes images, descriptions, prices, and stock availability.  
+- **Advanced Search & Filtering** – Users can filter products by category, price range, and ratings.  
+- **Shopping Cart & Checkout** – Secure and seamless checkout experience with payment gateway integration.  
+
+### 🔧 **Admin Dashboard**  
+- **Product & Inventory Management** – Add, update, and remove products easily.  
+- **Order & Payment Management** – View, manage, and process customer orders and payments.  
+- **User Management** – Control user roles and access levels for better security.  
+
+---
+
+## 🛠️ Tech Stack  
+
+| Technology | Purpose |
+|------------|---------|
+| **React.js** | Frontend Framework |
+| **Node.js & Express.js** | Backend API |
+| **MongoDB** | Database |
+| **Firebase Authentication** | User Authentication |
+| **Stripe** | Payment Gateway |
+| **CSS Modules** | Styling |
+
+---
+
+## 🚀 Getting Started  
+
+### 📥 Clone the Repository  
+Clone both the **client-side** and **server-side** repositories:  
+
+```bash
+git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
+```
+**Open files in VS Code:**
    - After opening the **client-side** files in VS Code, install npm dependencies:
      ```bash
      npm install
      ```
+**Run local :**
+   - Open your vsCode tarminal and check which file are you. Go your client file and run code `npm run dev` then client side run in local.

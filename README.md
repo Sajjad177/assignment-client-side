@@ -30,3 +30,18 @@
 - **User Management**-Control user roles and access levels for better security.
 ---
 
+## How to Clone and Run the Project Locally : 
+1. **Clone the repository:**
+   - First, you need to clone the **client** and **server side**. Open your terminal and type:
+     ```bash
+     git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
+     ```
+2. **Navigate to the Project Folder:**
+     ```bash
+    cd your-repo-name
+     ```
+2. **Open files in VS Code:**
+   - After opening the **client-side** files in VS Code, install npm dependencies:
+     ```bash
+     npm install
+     ```

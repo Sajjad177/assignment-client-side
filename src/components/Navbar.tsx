@@ -29,7 +29,7 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    dispatch(logOut());
+    dispatch(logOut() as any);
     navigate("/login");
   };
 
@@ -133,10 +133,7 @@ const Navbar = () => {
                 <>
                   <>
                     <Link to="/dashboard">
-                      <Button  className="px-4">
-                        {" "}
-                        Dashboard{" "}
-                      </Button>
+                      <Button className="px-4"> Dashboard </Button>
                     </Link>
                     <Button onClick={handleLogout} className="px-4">
                       <LogOut className="ml-1 h-4 w-4" />

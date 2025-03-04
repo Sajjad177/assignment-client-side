@@ -1,6 +1,8 @@
 export interface User {
   userId: string;
   role: "admin" | "user";
+  image?: string;
+  _id?: string;
 }
 
 export type ProductFormValues = {
@@ -9,7 +11,5 @@ export type ProductFormValues = {
   brand: string;
   quantity: number;
   category: string;
-  image?: File; 
+  image?: File;
 };
-
-

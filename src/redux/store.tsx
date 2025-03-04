@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./features/auth/authSlice";
+import socketReducer from "./features/socket/socketSlice";
 import { baseApi } from "./api/baseApi";
 import storage from "redux-persist/lib/storage";
 import {
@@ -24,11 +25,13 @@ export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
     auth: persistedAuthReducer,
+    socket: socketReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        ignoredPaths: ["socket.socket"], // do not persist socket
       },
     }).concat(baseApi.middleware),
 });

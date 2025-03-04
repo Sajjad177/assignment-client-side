@@ -1,4 +1,6 @@
 import EditProduct from "@/components/EditProduct";
+import ChatHomePage from "@/pages/Dashboard/ChatSection/ChatHomePage/ChatHomePage";
+import Gemini from "@/pages/Dashboard/Gemini/Gemini";
 import Orders from "@/pages/Dashboard/Orders";
 import Products from "@/pages/Dashboard/Products";
 import Profile from "@/pages/Dashboard/Profile";
@@ -34,6 +36,14 @@ const dashboardRoute = [
   {
     path: "orders/:id",
     element: <MyOrder />,
+  },
+  {
+    path: "gemini",
+    element: <Gemini />,
+  },
+  {
+    path: "chat-home-page",
+    element: <ChatHomePage />,
   },
 ];
 

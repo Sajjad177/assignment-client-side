@@ -9,6 +9,7 @@ import {
   ShoppingBag,
   Box,
   LayoutDashboard,
+  MessageCircle,
 } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
 import { useAppSelector } from "@/redux/hook";
@@ -48,6 +49,11 @@ const Sidebar = () => {
           icon: <User className="w-4 h-4" />,
           name: "Profile",
           href: "profile",
+        },
+        {
+          icon: <MessageCircle className="w-4 h-4" />,
+          name: "Chat",
+          href: "chat-home-page",
         }
       );
       break;
@@ -69,6 +75,11 @@ const Sidebar = () => {
           icon: <User className="w-4 h-4" />,
           name: "Profile",
           href: "profile",
+        },
+        {
+          icon: <MessageCircle className="w-4 h-4" />,
+          name: "Chat",
+          href: "chat-home-page",
         }
       );
       break;

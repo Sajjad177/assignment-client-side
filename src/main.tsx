@@ -1,4 +1,3 @@
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { RouterProvider } from "react-router-dom";
@@ -7,14 +6,19 @@ import { Toaster } from "sonner";
 import { Provider } from "react-redux";
 import { persistor, store } from "./redux/store.tsx";
 import { PersistGate } from "redux-persist/integration/react";
+import ContextProvider from "./context/context.tsx";
+import SocketProvider from "./provider/socketProvider.tsx";
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
+  <ContextProvider>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <RouterProvider router={router} />
+        <SocketProvider>
+          {/* Ensures Socket.io is connected globally */}
+          <RouterProvider router={router} />
+        </SocketProvider>
       </PersistGate>
     </Provider>
     <Toaster position="top-right" />
-  </StrictMode>
+  </ContextProvider>
 );

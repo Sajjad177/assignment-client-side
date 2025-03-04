@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal, Folder } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const files = [
   { name: "Blogs", type: "Sketch", date: "21.03.2019" },
@@ -25,10 +26,21 @@ const Dashboard = () => {
   return (
     <div className="container mx-auto p-6 space-y-8">
       {/* Recently Used Section */}
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-          Recently Used
-        </h2>
+      <div className="space-y-4">
+        <div className="flex justify-between items-center">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+            Recently Used
+          </h2>
+          <Link to="gemini">
+            <Button
+              className="border border-gray-300 dark:border-gray-600 px-5 py-2 rounded-full shadow-sm 
+            bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all text-black"
+            >
+              Get Help from Gemini
+            </Button>
+          </Link>
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
           {folders.map((folder, index) => (
             <Card
@@ -86,7 +98,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/*  Progress Section */}
+      {/* Progress Section */}
       <div>
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
           Progress

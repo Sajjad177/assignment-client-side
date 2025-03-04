@@ -9,6 +9,7 @@ import { setUser } from "@/redux/features/auth/authSlice";
 import { verifyToken } from "@/utils/verifyToken";
 import { Link, useNavigate } from "react-router-dom";
 
+
 type LoginFormInputs = {
   email: string;
   password: string;
@@ -34,13 +35,22 @@ const Login = () => {
       };
       const res = await login(userInfo).unwrap();
       const user = verifyToken(res.data.token);
+      console.log('this is login -.',user)
+
+      // Set user data in Redux state
       dispatch(
         setUser({
           user: user,
           token: res.data.token,
         })
       );
+
+      // Dispatch socket connection with token
+      // dispatch(connectSocket({ token: res.data.token }));
+
+      // Redirect user to homepage after successful login
       navigate("/");
+
       toast.success("Login successful");
     } catch (error) {
       console.log(error);
@@ -109,14 +119,19 @@ const Login = () => {
                 </p>
               )}
             </div>
+
             <p>
               Don't have an account?{" "}
               <Link to="/register" className="text-blue-500">
                 Register
               </Link>
             </p>
+
             {/* Submit Button */}
-            <Button type="submit" className="w-full bg-teal-600 hover:bg-teal-700 ">
+            <Button
+              type="submit"
+              className="w-full bg-teal-600 hover:bg-teal-700 "
+            >
               Login
             </Button>
           </form>
